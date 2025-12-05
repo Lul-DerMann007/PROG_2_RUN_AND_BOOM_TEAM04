@@ -1,4 +1,4 @@
-#   Alle festen globalen Werte, die das Spiel definieren sind in diesem Modul settings
+#  Alle festen globalen Werte, die das Spiel definieren sind in diesem Modul settings
 #  Bildschrimgröße und Frames per Second (FPS)
 WIDTH = 1280         # Breite des Spielfensters in Pixeln
 HEIGHT = 720         # Höhe des Spielfensters in Pixeln

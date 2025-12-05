@@ -49,14 +49,6 @@ class Runner(pg.sprite.Sprite):
         if self.pos.y == target_y:
             self.current_lane = self.target_lane
 
-        # if self.pos.y < RUNNER_SIZE / 2:        #obere grenze, runner kann oben nicht raus
-        #     self.pos.y = RUNNER_SIZE / 2
-        #     self.vel.y = 0
-
-        # if self.pos.y > HEIGHT - RUNNER_SIZE / 2: #untere grenze, runner kann unten nicht raus
-        #     self.pos.y = HEIGHT - RUNNER_SIZE / 2
-        #     self.vel.y = 0
-
         # Rechte Begrenzung: Runner darf nicht weiter nach rechts als die linke Seite der Kanone
         cannon = self.game.world.cannon
         max_runner_x = cannon.rect.left - RUNNER_SIZE / 2   # Abstand abhängig von Runer-Breite

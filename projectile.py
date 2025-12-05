@@ -37,20 +37,3 @@ class Projectile(pg.sprite.Sprite):
         # Entfernt das Projektil aus allen Sprite-Gruppen.
         self.active = False
         self.kill()
-
-
-# class Projectile(pg.sprite.Sprite):
-#     def __init__(self, game, x, y):
-#         pg.sprite.Sprite.__init__(self)
-#         self.game = game
-#         self.image = pg.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
-#         self.image.fill(YELLOW)
-#         self.rect = self.image.get_rect(center=(x, y))
-#         self.speed: float = PROJECTILE_SPEED
-#         self.active: bool = True
-        
-#     def update(self, dt: float):
-#         pass
-
-#     def kill_me(self):
-#         self.kill()

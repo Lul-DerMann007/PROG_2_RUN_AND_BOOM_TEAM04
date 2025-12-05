@@ -3,16 +3,16 @@ from pygame.math import Vector2 as vec
 from settings import *
 from projectile import Projectile
 
-def smooth_target_transition(current_Y: float, target_y: float, dt: float, smooth_factor):      #Funktion ist Ki-generiert und übernommen aus der runner class. Prompt ist dort beigelegt.
+def smooth_target_transition(current_Y: float, target_y: float, dt: float, smooth_factor):      
+    #Funktion ist Ki-generiert und übernommen aus der runner class. Prompt ist dort beigelegt.
     if abs(current_Y - target_y) > 1.0:
         diff = target_y - current_Y
         return current_Y + diff * smooth_factor * dt
     else:
         return target_y
 
-class Cannon(pg.sprite.Sprite):                     #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
-
-
+class Cannon(pg.sprite.Sprite):                     
+    #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
     def __init__(self, game, start_lane: int):              
         super().__init__()
         self.game = game
