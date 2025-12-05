@@ -60,6 +60,9 @@ class Game:
     def draw(self):
         self.world.draw(self.screen)    #ermöglicht "zeichnen" im Fenster       (über gameworld)
         pygame.display.update()         #zeigt das gezeichnete dann an
+
+    def checkpoint_is_reached():
+        pass                            #Hier kommt hin, was passiert wenn checkpoint erreicht wird
         
     def run(self):      #Gameloop (läuft so lange self.running True ist)
         while self.running:                     

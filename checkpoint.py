@@ -18,6 +18,10 @@ class Checkpoint(pygame.sprite.Sprite):
        
         # Anpassung der Position basierend auf der Scroll-Geschwindigkeit (Geschwindigkeit der Map)
         self.rect.x -= SCROLL_SPEED * dt
-        
-        # Später: check_reached() Logik hier einfügen
-        pass
+   
+    #Checkpoint erreicht Logik
+    def check_reached(self,runner):
+        if not self.is_reached and self.rect.colliderect(runner.rect):  #prüft, ob checkpoint noch nicht erreicht ist und runner und checkpoint überlappen
+            self.is_reached = True              #wenn die überlappen, wird self.is_reached auf True gestellt
+            self.game.checkpoint_reached()      #game.py wird benachrichtigt
+
