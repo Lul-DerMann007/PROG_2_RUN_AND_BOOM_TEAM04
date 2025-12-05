@@ -1,6 +1,6 @@
 # game.py
 
-import pygame 
+import pygame as pg
 from settings import *
 from gameworld import GameWorld
 from player import Player
@@ -12,24 +12,24 @@ class Game:
     
     def __init__(self):
         # Initialisierung und Fenster erstellen
-        pygame.init() 
+        pg.init() 
         
         try:
-            pygame.mixer.init()
+            pg.mixer.init()
         except Exception:
             print("Audio mixer fehlgeschlagen, weiter ohne audio")
         
         # Fenster erstellen und Einstellungen setzen
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption(TITLE) 
+        self.screen = pg.display.set_mode((WIDTH, HEIGHT))
+        pg.display.set_caption(TITLE) 
         
         # Zeitmodule und interne Zustände
-        self.clock = pygame.time.Clock()
+        self.clock = pg.time.Clock()
         self.running = True
         
-        self.all_sprites = pygame.sprite.Group()    #alle sprites werden in einer gruppe gespeichert (sehr leicht so aufzurufen)
-        self.obstacles = pygame.sprite.Group()      #nur für hindernisse (kollisionen)  !Spätere Implementierung!
-        self.projectiles = pygame.sprite.Group()    #nur für projektile (kollisionen) !Spätere Implementierung!
+        self.all_sprites = pg.sprite.Group()    #alle sprites werden in einer gruppe gespeichert (sehr leicht so aufzurufen)
+        self.obstacles = pg.sprite.Group()      #nur für hindernisse (kollisionen)  !Spätere Implementierung!
+        self.projectiles = pg.sprite.Group()    #nur für projektile (kollisionen) !Spätere Implementierung!
         
         #Player Objekte erstellen
         self.player1 = Player("Spieler 1", PLAYER1_CONTROLS)
@@ -45,10 +45,10 @@ class Game:
 
     def events(self):   #Events: Verarbeitet alle Benutzer- und Systemereignisse.
         # Wenn Nutzer fenster schließt oder ESC drückt, wird das Spiel beendet
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
                 self.running = False                
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
 
                 #!Später! Hier Startlogik für neue Runden rein
@@ -59,7 +59,7 @@ class Game:
 
     def draw(self):
         self.world.draw(self.screen)    #ermöglicht "zeichnen" im Fenster       (über gameworld)
-        pygame.display.update()         #zeigt das gezeichnete dann an
+        pg.display.update()         #zeigt das gezeichnete dann an
 
     def checkpoint_is_reached():
         pass                            #Hier kommt hin, was passiert wenn checkpoint erreicht wird
@@ -73,4 +73,4 @@ class Game:
             self.draw() 
 
         # Schließen des Programms, wenn Schleife beendet ist
-        pygame.quit()
+        pg.quit()

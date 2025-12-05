@@ -1,6 +1,5 @@
 import pygame as pg 
 from settings import *
-
 class Checkpoint(pg.sprite.Sprite):
     def __init__(self, game, x: float):
         pg.sprite.Sprite.__init__(self)

@@ -1,5 +1,5 @@
 # Der Runner als ein Sprite
-import pygame
+import pygame as pg
 from pygame.math import Vector2 as vec
 from settings import *
 
@@ -10,14 +10,14 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
     else:
         return target_y
 
-class Runner(pygame.sprite.Sprite):
+class Runner(pg.sprite.Sprite):
    
     def __init__(self, game, x: float, start_lane: int):
-        pygame.sprite.Sprite.__init__(self) # Initialisierung der Oberklasse
+        pg.sprite.Sprite.__init__(self) # Initialisierung der Oberklasse
         self.game = game # Referenz auf die Game-Klasse für Scoring
         
         # Zustand (Attribute)
-        self.image = pygame.Surface((RUNNER_SIZE, RUNNER_SIZE))
+        self.image = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))
         self.image.fill(RUNNER_COLOR)
         self.rect = self.image.get_rect()
 
@@ -70,24 +70,24 @@ class Runner(pygame.sprite.Sprite):
 
     def get_keys(self):
         self.acc = vec(0, 0)
-        keys = pygame.key.get_pressed()
+        keys = pg.key.get_pressed()
         
         self.vel.x = 0  
             # Horizontale Bewegung
-        if keys[pygame.K_a]:
+        if keys[pg.K_a]:
             self.vel.x = -RUNNER_SPEED
-        if keys[pygame.K_d]:
+        if keys[pg.K_d]:
             self.vel.x = RUNNER_SPEED
         
        #Lane wechsel, nur möglich wenn man nicht  gerade wechselt
 
         if self.current_lane == self.target_lane:
 
-            if keys[pygame.K_w] :
+            if keys[pg.K_w] :
                 if self.target_lane > 0:
                     self.target_lane -= 1
 
-            if keys[pygame.K_s]:
+            if keys[pg.K_s]:
                 if self.target_lane < NUM_LANES - 1:
                     self.target_lane += 1     
 
