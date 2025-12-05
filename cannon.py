@@ -1,4 +1,4 @@
-import pygame 
+import pygame as pg
 from pygame.math import Vector2 as vec
 from settings import *
 from projectile import Projectile
@@ -10,7 +10,7 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
     else:
         return target_y
 
-class Cannon(pygame.sprite.Sprite):                     #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
+class Cannon(pg.sprite.Sprite):                     #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
 
 
     def __init__(self, game, start_lane: int):              
@@ -18,7 +18,7 @@ class Cannon(pygame.sprite.Sprite):                     #Kanone am rechten Rand,
         self.game = game
 
         # Darstellung erstmal nur roter kasten
-        self.image = pygame.Surface((CANNON_WIDTH, CANNON_HEIGHT))
+        self.image = pg.Surface((CANNON_WIDTH, CANNON_HEIGHT))
         self.image.fill(CANNON_COLOUR)
         self.rect = self.image.get_rect()
 
@@ -43,26 +43,26 @@ class Cannon(pygame.sprite.Sprite):                     #Kanone am rechten Rand,
         return lane * LANE_HEIGHT + LANE_HEIGHT // 2
 
     def handle_input(self):
-        keys = pygame.key.get_pressed()
+        keys = pg.key.get_pressed()
         # Nur wenn wir die Ziel-Lane erreicht haben, darf eine neue gewählt werden
         if self.current_lane == self.target_lane:
 
             # eine Lane nach oben (entspricht Runner: W/SPACE)
-            if keys[pygame.K_UP]:
+            if keys[pg.K_UP]:
                 if self.target_lane > 0:
                     self.target_lane -= 1
 
             # eine Lane nach unten (entspricht Runner: S)
-            if keys[pygame.K_DOWN]:
+            if keys[pg.K_DOWN]:
                 if self.target_lane < NUM_LANES - 1:
                     self.target_lane += 1
 
         # Schießen mit linkem Pfeil (mit Debounce) 
-        if keys[pygame.K_LEFT] and not self._left_was_pressed:
+        if keys[pg.K_LEFT] and not self._left_was_pressed:
             self.shoot()
 
         # Tastenzustand für das nächste Frame merken, verhindert das dauerhafte schießen        #Anregung von ChatGPT. Prompt: mit welcher pygame funktion kann man abfragen, ob eine taste im Zustand gedrückt ist?
-        self._left_was_pressed = keys[pygame.K_LEFT]                                                    #Antwort von ChatGPT: "Funktion: pygame.key.get_pressed()--> gibt eine Liste zurück, die den Zustand der Taste enthält"
+        self._left_was_pressed = keys[pg.K_LEFT]                                                    #Antwort von ChatGPT: "Funktion: pygame.key.get_pressed()--> gibt eine Liste zurück, die den Zustand der Taste enthält"
 
     def shoot(self):
         # Erzeugt ein Projektil und fügt es in die Sprite-Gruppen der GameWorld ein.

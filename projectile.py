@@ -1,15 +1,15 @@
-import pygame
+import pygame as pg
 from pygame.math import Vector2 as vec
 from settings import *
 
 
-class Projectile(pygame.sprite.Sprite):
+class Projectile(pg.sprite.Sprite):
     def __init__(self, game, x: float, y: float):
         super().__init__()
         self.game = game
 
         # Darstellung: kleiner "Ball"
-        self.image = pygame.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
+        self.image = pg.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
         self.image.fill(PROJECTILE_COLOUR)                      # vorher: YELLOW
         self.rect = self.image.get_rect(center=(x, y))
 
@@ -39,11 +39,11 @@ class Projectile(pygame.sprite.Sprite):
         self.kill()
 
 
-# class Projectile(pygame.sprite.Sprite):
+# class Projectile(pg.sprite.Sprite):
 #     def __init__(self, game, x, y):
-#         pygame.sprite.Sprite.__init__(self)
+#         pg.sprite.Sprite.__init__(self)
 #         self.game = game
-#         self.image = pygame.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
+#         self.image = pg.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
 #         self.image.fill(YELLOW)
 #         self.rect = self.image.get_rect(center=(x, y))
 #         self.speed: float = PROJECTILE_SPEED

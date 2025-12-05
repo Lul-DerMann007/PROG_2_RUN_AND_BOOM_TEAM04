@@ -1,16 +1,16 @@
-import pygame 
+import pygame as pg 
 from settings import *
 
-class Checkpoint(pygame.sprite.Sprite):
+class Checkpoint(pg.sprite.Sprite):
     def __init__(self, game, x: float):
-        pygame.sprite.Sprite.__init__(self)
+        pg.sprite.Sprite.__init__(self)
         self.game = game
         
         # Attribute passend zu, UML-Design
         self.is_reached: bool = False
         
         # Visuelle Darstellung (Platzhalter)
-        self.image = pygame.Surface((CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT))
+        self.image = pg.Surface((CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect(topleft=(x, 0))
         
