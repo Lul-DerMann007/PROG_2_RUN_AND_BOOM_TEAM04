@@ -1,3 +1,4 @@
+import pygame as pg
 from game import Game 
 #Erstellt spielobjekt und startet loop
 def main():

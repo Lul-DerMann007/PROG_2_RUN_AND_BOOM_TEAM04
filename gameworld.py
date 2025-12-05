@@ -1,5 +1,5 @@
 # gameworld.py
-import pygame
+import pygame as pg
 import random
 from runner import Runner
 from cannon import Cannon
@@ -55,7 +55,7 @@ class GameWorld:
         # Zeichnen der Bahnen/Linien 
         for i in range(NUM_LANES + 1):
             y = i * LANE_HEIGHT
-            pygame.draw.line(screen, DARKGRAY, (0, y), (WIDTH, y), 1)
+            pg.draw.line(screen, DARKGRAY, (0, y), (WIDTH, y), 1)
         
         # Zeichnen aller Sprites
         self.game.all_sprites.draw(screen)
