@@ -12,3 +12,6 @@ class Obstacle(pg.sprite.Sprite):
         
     def update(self, dt: float):
         self.rect.x -= SCROLL_SPEED * dt # Bewegung des Hindernisses mit der Welt
+
+
+    #Hinderniss Spawn Logik !Später!

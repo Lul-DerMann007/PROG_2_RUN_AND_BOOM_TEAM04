@@ -18,7 +18,7 @@ class Runner(pg.sprite.Sprite):
         
         # Zustand (Attribute)
         self.image = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))
-        self.image.fill(RUNNER_COLOR)
+        self.image.fill(RUNNER_COLOUR)
         self.rect = self.image.get_rect()
 
         #Lane/Ebenen System
