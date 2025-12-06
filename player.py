@@ -6,13 +6,22 @@ class Player:
     def __init__(self, name: str, controls: dict):
         # Attribute (Eigenschaften)
         self.name: str = name       
-        self.score: int = 0         
+        
+        #Punktesystem im neuen Satz Modus                           #angepasst von Jonte 06.12 21:54 alles auf neues punktesystem ausrichten
+        self.round_score = 0        #gewonnene runden im Satz
+        self.set_score = 0          #gewonnene Sätze im Match
+        self.score = 0              #Gesamtpunktestand, kann man eventuell noch verwerfen am Ende
+        
         self.role: str = None       
         self.controls: dict = controls 
         
-    def increase_score(self):
-        # Methode (Verhalten): Erhöht den Punktestand um 1.
-        self.score += 1
+    def win_round(self):                                    #increase_score ersetzt durch win_round, sinnvoller bei neuem score-system
+        self.round_score += 1   #runde im satz
+        self.score +=1          #runden overall
+
+    def win_set(self):          
+        self.set_score
+
         
     def switch_role(self):
         #Methode: Wechselt die Rolle zwischen "runner" und "cannon".
@@ -24,4 +33,6 @@ class Player:
     def reset(self):
         # Setzt den Spieler für ein neues Spiel zurück.
         self.score = 0
+        self.round_score = 0
+        self.set_score = 0
         self.role = None
