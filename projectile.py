@@ -37,3 +37,8 @@ class Projectile(pg.sprite.Sprite):
         # Entfernt das Projektil aus allen Sprite-Gruppen.
         self.active = False
         self.kill()
+
+
+    def check_collision_with_runner(self,runner):              #Jonte Anpassungen 16:34 !Später! darunter check_collisions_with_obstacle
+        self.game.cannon_scores(reason = "hit")
+        self.kill_me()

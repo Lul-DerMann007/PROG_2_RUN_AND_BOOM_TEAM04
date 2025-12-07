@@ -43,6 +43,11 @@ class Runner(pg.sprite.Sprite):
         
         #Horizontale Bewegung
         self.pos.x += self.vel.x * dt 
+
+        if self.pos.x < -RUNNER_SIZE:                               #links raus wenn runner mehr als seine eigene größe links raus ist
+            self.game.cannon_scores(reason = "pushed_off")
+            return
+        
         #vertikale Bewegung + smoothing funktion für kanone und runner
         target_y= self.get_lane_y(self.target_lane)
         self.pos.y = smooth_target_transition(self.pos.y, target_y, dt,RUNNER_SMOOTH_FACTOR)
@@ -57,7 +62,6 @@ class Runner(pg.sprite.Sprite):
         if self.pos.x > max_runner_x:
             self.pos.x = max_runner_x
             self.vel.x = 0
-            #keine linke grenze! später soll runner ja sterben wenn er links raus geht 
                                                     
         self.rect.center = (int(self.pos.x), int(self.pos.y))
 
@@ -93,4 +97,4 @@ class Runner(pg.sprite.Sprite):
         self.target_lane = lane
         self.pos = vec(x, self.get_lane_y(lane))
         self.vel = vec(0, 0)
-        self.axx = vec(0, 0)
+        self.acc = vec(0, 0)

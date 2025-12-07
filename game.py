@@ -171,13 +171,13 @@ class Game:
 
     def draw_ui(self):
         p1_title = self.font.render("SPIELER 1 (BLAU)", True, BLUE)
-        p1_score = self.font.render(f"Sätze: {self.player1.set_score} | Runden: {self.player1.round_score}", True, BLACK) 
+        p1_score = self.font.render(f"Sätze: {self.player1.set_score} | Runden: {self.player1.round_score}", True, BLUE) 
         
         self.screen.blit(p1_title, (20, 20))
         self.screen.blit(p1_score, (20, 55))
         
         p2_title = self.font.render("SPIELER 2 (ROT)", True, RED)
-        p2_score = self.font.render(f"Sätze: {self.player2.set_score} | Runden: {self.player2.round_score}", True, BLACK)
+        p2_score = self.font.render(f"Sätze: {self.player2.set_score} | Runden: {self.player2.round_score}", True, BLUE)
         
         self.screen.blit(p2_title, (WIDTH - 250, 20)) 
         self.screen.blit(p2_score, (WIDTH - 250, 55))
@@ -231,7 +231,7 @@ class Game:
             color = BLUE if self.current_runner == self.player1 else RED
         else:
             if self.last_point_reason == "pushed_off":
-                text = "Runner vom Bildschirm gedraengt!"
+                text = "Runner vom Bildschirm gedrängt!"
             else:
                 text = "Runner abgeschossen!"
             color = RED if self.current_cannon == self.player2 else BLUE
