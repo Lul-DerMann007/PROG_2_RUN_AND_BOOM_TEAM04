@@ -20,7 +20,7 @@ class Player:
         self.score +=1          #runden overall
 
     def win_set(self):          
-        self.set_score
+        self.set_score += 1
 
         
     def switch_role(self):

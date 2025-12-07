@@ -9,7 +9,7 @@ TITLE = "Run & Boom" # Fenstertitel
 
 #Score-Regeln / Satz System             #!Später! fürs Score System. Hinzugefügt von Jonte 06.12 21:00
 ROUNDS_TO_WIN_SET = 3                       
-ROUNDS_TO_WIN_MATCH = 3
+SETS_TO_WIN_MATCH = 3
 
 # Farben (R, G, B)
 WHITE = (255, 255, 255)

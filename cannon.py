@@ -13,9 +13,10 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
 
 class Cannon(pg.sprite.Sprite):                     
     #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
-    def __init__(self, game, start_lane: int):              
+    def __init__(self, game, start_lane: int,controls: dict):              
         super().__init__()
         self.game = game
+        self.controls = controls
 
         # Darstellung erstmal nur roter kasten
         self.image = pg.Surface((CANNON_WIDTH, CANNON_HEIGHT))
@@ -47,22 +48,22 @@ class Cannon(pg.sprite.Sprite):
         # Nur wenn wir die Ziel-Lane erreicht haben, darf eine neue gewählt werden
         if self.current_lane == self.target_lane:
 
-            # eine Lane nach oben (entspricht Runner: W/SPACE)
-            if keys[pg.K_UP]:
+            # eine Lane nach oben (entspricht Runner: W/SPACE) 'up' und 'down' implementieren, da wir tasten übergeben wollen
+            if keys[self.controls['up']]:                                                                                      
                 if self.target_lane > 0:
                     self.target_lane -= 1
 
             # eine Lane nach unten (entspricht Runner: S)
-            if keys[pg.K_DOWN]:
+            if keys[self.controls['down']]:   
                 if self.target_lane < NUM_LANES - 1:
                     self.target_lane += 1
 
-        # Schießen mit linkem Pfeil (mit Debounce) 
-        if keys[pg.K_LEFT] and not self._left_was_pressed:
+        # Schießen mit linkem Pfeil (mit Debounce) bzw. A bei WASD 
+        if keys[self.controls['left']] and not self._left_was_pressed:
             self.shoot()
 
         # Tastenzustand für das nächste Frame merken, verhindert das dauerhafte schießen        #Anregung von ChatGPT. Prompt: mit welcher pygame funktion kann man abfragen, ob eine taste im Zustand gedrückt ist?
-        self._left_was_pressed = keys[pg.K_LEFT]                                                    #Antwort von ChatGPT: "Funktion: pygame.key.get_pressed()--> gibt eine Liste zurück, die den Zustand der Taste enthält"
+        self._left_was_pressed = keys[self.controls['left']]                                                  #Antwort von ChatGPT: "Funktion: pygame.key.get_pressed()--> gibt eine Liste zurück, die den Zustand der Taste enthält"
 
     def shoot(self):
         # Erzeugt ein Projektil und fügt es in die Sprite-Gruppen der GameWorld ein.

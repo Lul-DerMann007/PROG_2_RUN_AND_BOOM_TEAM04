@@ -30,11 +30,16 @@ class GameWorld:
         # Elemente erstellen (Komposition)
         start_x = 100
         checkpoint_x = start_x + CHECKPOINT_DISTANCE       #simple rechenlogik für platzierung objekte
-        start_lane = NUM_LANES //2                          
+        start_lane = NUM_LANES //2
+
+        runner_controls = self.game.current_runner.controls
+        cannon_controls = self.game.current_cannon.controls                          
         
-        self.runner = Runner(self.game, start_x, start_lane)        
-        self.cannon = Cannon(self.game, start_lane)             #zugriff für wichtigsten elemente auf game, startpunkt usw.
+        self.runner = Runner(self.game, start_x, start_lane,runner_controls)        
+        self.cannon = Cannon(self.game, start_lane, cannon_controls)             #zugriff für wichtigsten elemente auf game, startpunkt usw.
         self.checkpoint = Checkpoint(self.game, checkpoint_x)
+
+        self.checkpoint.is_reached = False
         
         # Werden zur Gruppe hinzugefügt und regelmäßig abgefragt
         self.game.all_sprites.add(self.runner, self.cannon, self.checkpoint)
@@ -44,10 +49,11 @@ class GameWorld:
         
     def update(self, dt: float):
          # Ruft die update-Methode in jedem Sprite auf 
-        self.game.all_sprites.update(dt) 
+        self.game.all_sprites.update(dt)
+        # self.check_collisions()                           #Hier nächster Commit zwingend
 
         # Später: self.spawn_obstacles(dt)
-        # Später: self.check_collisions()
+        
         
     def draw(self, screen):
         screen.fill(BLACK)

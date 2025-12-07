@@ -12,9 +12,10 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
 
 class Runner(pg.sprite.Sprite):
    
-    def __init__(self, game, x: float, start_lane: int):
+    def __init__(self, game, x: float, start_lane: int, controls: dict):
         pg.sprite.Sprite.__init__(self) # Initialisierung der Oberklasse
         self.game = game # Referenz auf die Game-Klasse für Scoring
+        self.controls = controls
         
         # Zustand (Attribute)
         self.image = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))
@@ -66,20 +67,20 @@ class Runner(pg.sprite.Sprite):
         
         self.vel.x = 0  
             # Horizontale Bewegung
-        if keys[pg.K_a]:
+        if keys[self.controls['left']]:
             self.vel.x = -RUNNER_SPEED
-        if keys[pg.K_d]:
+        if keys[self.controls['right']]:
             self.vel.x = RUNNER_SPEED
         
        #Lane wechsel, nur möglich wenn man nicht  gerade wechselt
 
         if self.current_lane == self.target_lane:
 
-            if keys[pg.K_w] :
+            if keys[self.controls['up']]:
                 if self.target_lane > 0:
                     self.target_lane -= 1
 
-            if keys[pg.K_s]:
+            if keys[self.controls['down']]:
                 if self.target_lane < NUM_LANES - 1:
                     self.target_lane += 1     
 
