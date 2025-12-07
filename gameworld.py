@@ -48,12 +48,40 @@ class GameWorld:
         # self.spawn_initial_obstacles()
         
     def update(self, dt: float):
-         # Ruft die update-Methode in jedem Sprite auf 
+        # Ruft die update-Methode in jedem Sprite auf
         self.game.all_sprites.update(dt)
-        # self.check_collisions()                           #Hier nächster Commit zwingend
 
         # Später: self.spawn_obstacles(dt)
-        
+
+        # Kollisionsprüfung: Ruft die check_collisions-Metode auf
+        self.check_collisions()      
+
+        # Später: self.checkpoint.check_reached() => Erreichen des Checkpoints prüfen
+
+    def check_collisions(self):
+        # Szenario 1: Runner trifft Hindernis
+        hits = pg.sprite.spritecollide(self.runner, self.game.obstacles, False) # hits (Liste aller berührten Hindernisse vom Runner): Pygame-Funktion prüft auf Kollision von 'runner' und 'obstacles', False: Nicht-Löschen von Hindernis
+            # spritecollider: Pygame-Funktion zum Finden von Kollisionen von Runner mit Hindernissen
+
+        for obstacle in hits: # Iteration aller berührten Hindernisse des Runners (hits)
+            self.runner.collide_with_obstacle(obstacle) # Kollision: Runner - Hindernis: Weitergabe zu 'collide_with_obstacle' für Reaktion des Runners (z.B. Zurückschieben durch Hindernis)
+                    # To-Do: Implementierung der Methode 'collide_with_obstacle'
+
+        # Szenario 2: Projektil trifft Runner
+        hits = pg.sprite.spritecollide(self.runner, self.game.projectiles, False) # hits (Liste aller berührten Projektile vom Runner): Pygame-Funktion prüft auf Kollision von 'runner' und 'projectiles'
+            # spritecollider: Pygame-Funktion zum Finden von Kollisionen von Runner mit Projektilen
+        for projectile in hits: # Iteration aller berührten Projektile des Runners (hits)
+            projectile.check_collision_with_runner(self.runner) # Kollision: Projektil - Runner: Weitergabe zu 'check_collision_with_runner' für Reaktion jedes Projektils: Berührung mit Runner? (Wenn ja: Punkt an Kanone + Löschen Projektil)
+                    # To-Do: Implementierung der Methode 'check_collision_with_runner'
+
+        # Szenario 3: Projektil trifft Hindernis
+        hits = pg.sprite.groupcollide(self.game.projectiles, self.game.obstacles, False, False) # hits (Liste aller Projektile und dazugehöriger getroffener Hindernisse): Pygame-Funktion prüft auf Kollision von 'projectiles' und 'obstacles'
+            # groupcollider: Pygame-Funktion zum Finden von Kollisionen von Projektilen und Hindernissen => Rückgabe: Dictionary { projectil: [liste_getroffener_hindernisse] }
+
+        for projectile, obstacle_hit in hits.items():
+            for obstacle in obstacle_hit: # Iteration aller getroffener Hindernisse von Projektilen
+                projectile.check_collision_with_obstacle(obstacle) # Kollision: Projektil - Hindernis: Weitergabe zu 'check_collision_with_obstacle' für Reaktion jedes Projektils: Berührung mit Hindernis? (Wenn ja: Projectil löscht sich selbst durch Kollision)
+                    # To-Do: Implementierung der Methode 'check_collision_with_obstacle'
         
     def draw(self, screen):
         screen.fill(BLACK)
