@@ -30,11 +30,6 @@ class Runner(pg.sprite.Sprite):
         self.pos = vec(x, self.get_lane_y(start_lane)) #Position
         self.vel = vec(0, 0) # Velocity (X-Geschwindigkeit)
         self.acc = vec(0, 0)
-
-        #UML Zustände- erstmal Platzhalter
-        self.is_jumping = False
-        self.is_ducking = False
-    
     def get_lane_y(self,lane):
         return lane * LANE_HEIGHT + LANE_HEIGHT // 2    #berechnet y-pixel position in der mitte einer lane
 
@@ -89,7 +84,7 @@ class Runner(pg.sprite.Sprite):
                     self.target_lane += 1     
 
     def collide_with_obstacle(self, obstacle):  #Kollision mit Hinderniss
-        # Wird von der GameWorld aufgerufen + muss noch hinzugefügt werden
+        # Wird von der GameWorld aufgerufen + muss noch hinzugefügt werden !Später!
         pass
         
     def reset_position(self, x, lane):

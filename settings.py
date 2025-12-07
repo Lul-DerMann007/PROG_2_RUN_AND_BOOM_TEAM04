@@ -7,7 +7,7 @@ HEIGHT = 720         # Höhe des Spielfensters in Pixeln
 FPS = 60             # Ziel-Bildwiederholrate
 TITLE = "Run & Boom" # Fenstertitel
 
-#Score-Regeln / Satz System             #!Später! fürs Score System. Hinzugefügt von Jonte 06.12 21:00
+#Score-Regeln / Satz System             # Hinzugefügt von Jonte 06.12 21:00
 ROUNDS_TO_WIN_SET = 3                       
 SETS_TO_WIN_MATCH = 3
 
@@ -22,17 +22,17 @@ GREEN = (0, 255, 0)
 YELLOW = (255, 255, 0)
 ORANGE = (255, 165, 0)
 
-#runner einstellungen
+#  Einstellungen Darstellung des Runners
 RUNNER_SIZE = 40
 RUNNER_COLOUR = BLUE
 
-# bewegung des runners
+# Bewegung des runners
 RUNNER_ACC = 400       # Beschleunigung in pixel pro sekunden, für spätere ziellogik wichtig
 RUNNER_FRICTION = -0.25     #reibung bzw. abbremsung
 RUNNER_SPEED = 400
 RUNNER_SMOOTH_FACTOR = 10.0         #zwischen den ebenen smoother übergang
 
-# Cannon setting
+# Einstellungen der Kanone
 CANNON_WIDTH = 60
 CANNON_HEIGHT = 40
 CANNON_OFFSET = 80 
@@ -51,32 +51,37 @@ NUM_LANES = 8
 LANE_HEIGHT = HEIGHT // NUM_LANES 
 LANE_SWITCH_SPEED = 0.15
 
-
-#Hindernisse
+#Hindernisse =  nächstes großes Thema
 OBSTACLE_WIDTH = 60
 OBSTACLE_HEIGHT = 60
+SCROLL_SPEED = 400       # Geschwindigkeit, mit der Hindernisse scrollen
 OBSTACLE_COLOUR = GRAY
 
-#checkpoint setting
-CHECKPOINT_DISTANCE = 3000
+# Einstellungen des Checkpoints
+CHECKPOINT_DISTANCE = 10000
 CHECKPOINT_WIDTH = 60
 CHECKPOINT_HEIGHT = HEIGHT  #evtl. checkpoint größe noch anpassen später, stand jetzt ganzer bildschirm lang
 CHECKPOINT_COLOUR = GREEN
 
-# Steuerung (Wird in player.py genutzt)   Änderung Jonte 06.12 20:50 Nicht mehr als Strings sondern pygame Konstanten
+# Steuerung (Wird in player.py genutzt)   Änderung Jonte 06.12 20:50 Strings als Pygame Konstanten abgespeichert (ermöglicht den Rollenwechsel)
 PLAYER1_CONTROLS = {
     'up': pg.K_w, 
     'down': pg.K_s,
-    'left': pg.K_a,         #als kanone zum schießen
+    'left': pg.K_a,         
     'right': pg.K_d
     }
 
 PLAYER2_CONTROLS = {
     'up': pg.K_UP, 
     'down': pg.K_DOWN, 
-    'left': pg.K_LEFT,          #als kanone zum schießen
-    'right': pg.K_RIGHT         #right noch nicht benötigt, aber später wenn wir rollen wechseln ohne umsetzen
+    'left': pg.K_LEFT,          
+    'right': pg.K_RIGHT         
     }
 
-SCROLL_SPEED = 400       # Geschwindigkeit, mit der Hindernisse scrollen
+#UI magische zahlen ausgelagert
+UI_FONT_SIZE = 36
+UI_FONT_SIZE_LARGE = 72
+UI_MARGIN = 20
+UI_LINE_SPACING = 40
+UI_OVERLAY_ALPHA = 200
 

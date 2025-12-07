@@ -32,10 +32,7 @@ class Cannon(pg.sprite.Sprite):
 
         # schuss steuerung
         self._left_was_pressed = False
-        self.can_shoot = True
         self.shoot_cooldown = 0.0   
-
-        self.projectiles: list = []
 
         self.rect.center = (int(self.pos.x), int(self.pos.y))
 

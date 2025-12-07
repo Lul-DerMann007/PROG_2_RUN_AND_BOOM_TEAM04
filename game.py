@@ -50,8 +50,8 @@ class Game:
         self.world = GameWorld(self)
 
         #Initialisierung von zwei Schriftgrößen (Überschrift + normal)              #eingefügt Jonte 06.12 23:02
-        self.font = pg.font.Font(None, 36)  #normale UI schriftgröße
-        self.font_large = pg.font.Font(None, 72)    #größere UI Schriftgröße/Überschriften
+        self.font = pg.font.Font(None, UI_FONT_SIZE)  #normale UI schriftgröße
+        self.font_large = pg.font.Font(None, UI_FONT_SIZE_LARGE)    #größere UI Schriftgröße/Überschriften
 
     def start_game(self):
         self.player1.reset()
@@ -73,9 +73,6 @@ class Game:
         self.game_state = "running"
         self.last_point_reason = None
         self.set_won_message =  None
-
-        runner_ctrls = self.current_runner.controls
-        cannon_ctrls = self.current_cannon.controls
 
         self.world.setup_round()
 
@@ -119,7 +116,7 @@ class Game:
             self.current_cannon = self.player1
     
     def reset_game(self):
-        self.game_state = "menu"
+        self.game_state == "menu"
         self.player1.reset()
         self.player2.reset()
         self.current_round_num = 0
@@ -173,14 +170,14 @@ class Game:
         p1_title = self.font.render("SPIELER 1 (BLAU)", True, BLUE)
         p1_score = self.font.render(f"Sätze: {self.player1.set_score} | Runden: {self.player1.round_score}", True, BLUE) 
         
-        self.screen.blit(p1_title, (20, 20))
-        self.screen.blit(p1_score, (20, 55))
+        self.screen.blit(p1_title, (UI_MARGIN, UI_MARGIN))
+        self.screen.blit(p1_score, (UI_MARGIN, UI_MARGIN + 35))
         
         p2_title = self.font.render("SPIELER 2 (ROT)", True, RED)
-        p2_score = self.font.render(f"Sätze: {self.player2.set_score} | Runden: {self.player2.round_score}", True, BLUE)
+        p2_score = self.font.render(f"Sätze: {self.player2.set_score} | Runden: {self.player2.round_score}", True, RED)
         
-        self.screen.blit(p2_title, (WIDTH - 250, 20)) 
-        self.screen.blit(p2_score, (WIDTH - 250, 55))
+        self.screen.blit(p2_title, (WIDTH - 250, UI_MARGIN)) 
+        self.screen.blit(p2_score, (WIDTH - 250, UI_MARGIN + 35))
         
         if self.game_state == "running":
             info_text = f"Satz-Ziel: {ROUNDS_TO_WIN_SET} Runden"
@@ -216,12 +213,12 @@ class Game:
             text_surface = self.font.render(line, True, WHITE)
             text_rect = text_surface.get_rect(center=(WIDTH // 2, y))
             self.screen.blit(text_surface, text_rect)
-            y += 40
+            y += UI_LINE_SPACING
             
     def draw_round_end(self):
         # Zeichnet den Endscreen einer Runde
         overlay = pg.Surface((WIDTH, HEIGHT))
-        overlay.set_alpha(200)
+        overlay.set_alpha(UI_OVERLAY_ALPHA)
         overlay.fill(BLACK)
         self.screen.blit(overlay, (0, 0))
         
@@ -281,11 +278,11 @@ class Game:
     def run(self):      #Gameloop (läuft so lange self.running True ist)
         while self.running:                     
             dt_ms = self.clock.tick(FPS)
-            dt_s = dt_ms / 1000             #zeit messung (framerate)                             
+            dt = dt_ms / 1000             #zeit messung (framerate)                             
             if not self.events():
                 self.running = False      
             
-            self.update(dt_s)  #spielstand für aktuellen frame aktualisieren
+            self.update(dt)  #spielstand für aktuellen frame aktualisieren
             self.draw() 
 
         # Schließen des Programms, wenn Schleife beendet ist
