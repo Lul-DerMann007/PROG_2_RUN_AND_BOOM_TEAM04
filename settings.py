@@ -52,9 +52,12 @@ NUM_LANES = 8
 LANE_HEIGHT = HEIGHT // NUM_LANES 
 LANE_SWITCH_SPEED = 0.15
 
-#Hindernisse =  nächstes großes Thema
-OBSTACLE_WIDTH = 60
-OBSTACLE_HEIGHT = 60
+#Hindernisse =  NEU: eingeführte Konstanzen
+OBSTACLE_BASE_WIDTH = 60    #Basis mit der multibliziert wird
+OBSTACLE_TYPE_SHORT = 2     #multiplikator kurze Hindernisse
+OBSTACLE_TYPE_LONG = 6      #multiplikator lange hindernisse
+OBSTACLE_GAP  = 250         #mindestasbstand zwischen den blöcken für später
+OBSTACLE_HEIGHT = 90        #Höhe = Ebenenhöhe
 SCROLL_SPEED = 400       # Geschwindigkeit, mit der Hindernisse scrollen
 OBSTACLE_COLOUR = GRAY
 
