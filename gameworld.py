@@ -41,9 +41,6 @@ class GameWorld:
 
         self.checkpoint.is_reached = False
         
-        # Werden zur Gruppe hinzugefügt und regelmäßig abgefragt
-        self.game.all_sprites.add(self.runner, self.cannon, self.checkpoint)
-        
         # Spawning (später)  
         # self.spawn_initial_obstacles()
         

@@ -3,7 +3,8 @@ from settings import *
 
 class Obstacle(pg.sprite.Sprite):
     def __init__(self, game, x: float, lane: int):
-        pg.sprite.Sprite.__init__(self)
+        self.groups = game.all_sprites, game.obstacles
+        super().__init__(self.groups)
         self.game = game
         self.image = pg.Surface((OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
         self.image.fill(GRAY)
@@ -12,6 +13,10 @@ class Obstacle(pg.sprite.Sprite):
         
     def update(self, dt: float):
         self.rect.x -= SCROLL_SPEED * dt # Bewegung des Hindernisses mit der Welt
+
+
+        if self.rect.right<0:           #Obstacle wird entfernt wenn es aus dem Bild ist (nicht weiter rendern)
+            self.kill()
 
 
     #Hinderniss Spawn Logik !Später!

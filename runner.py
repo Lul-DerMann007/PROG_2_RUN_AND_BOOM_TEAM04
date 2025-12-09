@@ -13,7 +13,8 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
 class Runner(pg.sprite.Sprite):
    
     def __init__(self, game, x: float, start_lane: int, controls: dict):
-        pg.sprite.Sprite.__init__(self) # Initialisierung der Oberklasse
+        self.groups = game.all_sprites
+        super().__init__(self.groups)
         self.game = game # Referenz auf die Game-Klasse für Scoring
         self.controls = controls
         

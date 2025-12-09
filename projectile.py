@@ -5,7 +5,8 @@ from settings import *
 
 class Projectile(pg.sprite.Sprite):
     def __init__(self, game, x: float, y: float):
-        super().__init__()
+        self.groups = game.all_sprites, game.projectiles
+        super().__init__(self.groups)
         self.game = game
 
         # Darstellung: kleiner "Ball"

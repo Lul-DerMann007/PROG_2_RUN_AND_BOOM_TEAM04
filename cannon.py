@@ -14,7 +14,8 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
 class Cannon(pg.sprite.Sprite):                     
     #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
     def __init__(self, game, start_lane: int,controls: dict):              
-        super().__init__()
+        self.groups = game.all_sprites
+        super().__init__(self.groups)    
         self.game = game
         self.controls = controls
 
@@ -73,11 +74,7 @@ class Cannon(pg.sprite.Sprite):
         y = self.pos.y
 
         projectile = Projectile(self.game, x, y)
-
-        # gruppen hinzufügung
-        self.game.all_sprites.add(projectile)
-        self.game.projectiles.add(projectile)
-
+        
         self.shoot_cooldown = CANNON_COOLDOWN       #cooldown setzen
 
     def update(self, dt: float):
