@@ -32,8 +32,8 @@ class Game:
         self.projectiles = pg.sprite.Group()    #nur für projektile (kollisionen) !Spätere Implementierung!
         
         #Player Objekte erstellen
-        self.player1 = Player("Spieler 1", PLAYER1_CONTROLS)
-        self.player2 = Player("Spieler 2", PLAYER2_CONTROLS)
+        self.player1 = Player("Spieler 1", PLAYER1_CONTROLS, "blue")
+        self.player2 = Player("Spieler 2", PLAYER2_CONTROLS, "red")
 
         #referenz auf aktuelle rollen (!Später!)
         self.current_runner = None

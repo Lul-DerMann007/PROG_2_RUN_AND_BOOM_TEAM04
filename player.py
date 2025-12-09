@@ -3,7 +3,7 @@
 
 class Player:
     
-    def __init__(self, name: str, controls: dict):
+    def __init__(self, name: str, controls: dict, colour:  str):
         # Attribute (Eigenschaften)
         self.name: str = name       
         
@@ -14,7 +14,8 @@ class Player:
         
         self.role: str = None       
         self.controls: dict = controls 
-        
+        self.colour: str = colour
+    
     def win_round(self):                                    #increase_score ersetzt durch win_round, sinnvoller bei neuem score-system
         self.round_score += 1   #runde im satz
         self.score +=1          #runden overall
