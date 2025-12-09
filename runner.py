@@ -49,13 +49,11 @@ class Runner(pg.sprite.Sprite):
         
         if self.pos.y == target_y:
             self.current_lane = self.target_lane
+        
+        max_x = WIDTH * RUNNER_MAX_SCREEN   # Maximalposition nach rechts: einstellbar über RUNNER_MAX_SCREEN in settings.py
 
-        # Rechte Begrenzung: Runner darf nicht weiter nach rechts als die linke Seite der Kanone
-        cannon = self.game.world.cannon
-        max_runner_x = cannon.rect.left - RUNNER_SIZE / 2   # Abstand abhängig von Runer-Breite
-
-        if self.pos.x > max_runner_x:
-            self.pos.x = max_runner_x
+        if self.pos.x > max_x:
+            self.pos.x = max_x
             self.vel.x = 0
                                                     
         self.rect.center = (int(self.pos.x), int(self.pos.y))
