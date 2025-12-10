@@ -43,6 +43,18 @@ class GameWorld:
         
         # Spawning (später)  
         # self.spawn_initial_obstacles()
+
+    #Funktion is_lane_free ist Ki-generiert mit Claude AI. Prompt:"Basierend auf dem bestehenden Code und der vorhandenen Obstacle Logik. Entwerfe eine Methode, die prüft ob die Lane, in der ein neues Hindernis spawnen soll, frei ist. Ergänze wie und wo diese Methode implementiert werden soll"
+    def is_lane_free(self, lane, x_pos):
+        target_lane_y = lane * LANE_HEIGHT//2               #Y-Koordinate an der Mitte der gewünschten Spur
+
+        for obs in self.game.obstacles:
+            obs_lane_y = obs.rect.centery                   #vergleich mit y-koordinate
+
+            if abs(obs_lane_y - target_lane_y) < 5 :        #abs() gibt positiven abstand zu 0 zurück, hier mit 5 toleranz
+                if x_pos < obs.rect.right + OBSTACLE_GAP:       
+                    return False
+        return True
         
     def update(self, dt: float):
         # Ruft die update-Methode in jedem Sprite auf
