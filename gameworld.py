@@ -73,11 +73,30 @@ class GameWorld:
 
             current_x += OBSTACLE_GAP
 
+
+    def spawn_obstacle(self,dt):        #Spawnt immer neue Obstacles während dem Spiel        
+        self.obstacle_spawn_timer += dt
+
+        if self.obstacle_spawn_timer >= self.obstacle_spawn_interval: 
+            self.obstacle_spawn_timer = 0.0      #setzt den Timer zurück 
+
+            spawn_x = WIDTH + 100       # Spawn außerhalb vom Bildschirm 
+
+            for _ in range(5):  
+                lane = random.randint(0,NUM_LANES -1)
+
+                if self.is_lane_free(lane, spawn_x):    #Zufälliges Hindernis (SHORT oder LONG)
+                    obstacle_type = random.choice([OBSTACLE_TYPE_SHORT,OBSTACLE_TYPE_LONG])
+                    Obstacle(self.game,spawn_x,lane,obstacle_type)
+                    break 
+               
+
+
     def update(self, dt: float):
         # Ruft die update-Methode in jedem Sprite auf
         self.game.all_sprites.update(dt)
 
-        # Später: self.spawn_obstacles(dt)
+        self.spawn_obstacle(dt)         #Aktiviert das Random Obstacle Spawning
 
         # Kollisionsprüfung: Ruft die check_collisions-Metode auf
         self.check_collisions()      
