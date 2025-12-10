@@ -19,7 +19,9 @@ class GameWorld:
         # Zustände der Welt
         self.scroll_speed: float = SCROLL_SPEED     #tempo der welt relativ zum runner
         self.obstacle_spawn_interval: float = 1.0   #wichtiges Balancing Tool für spätere Tests
-        
+        self.obstacle_spawn_timer: float = 0.0 #Timer für kontinuierliches Spawning  
+
+
     def setup_round(self):      #Initalisiert neue runde und füllr mit objekten
         
         # alle Gruppen werden erstmal  geleert
@@ -41,8 +43,8 @@ class GameWorld:
 
         self.checkpoint.is_reached = False
         
-        # Spawning (später)  
-        # self.spawn_initial_obstacles()
+        self.obstacle_spawn_timer = 0               #Timer zurücksetzen und intiale Hinderisse spawnen
+        self.spawn_intial_obstacle() 
 
     #Funktion is_lane_free ist Ki-generiert mit Claude AI. Prompt:"Basierend auf dem bestehenden Code und der vorhandenen Obstacle Logik. Entwerfe eine Methode, die prüft ob die Lane, in der ein neues Hindernis spawnen soll, frei ist. Ergänze wie und wo diese Methode implementiert werden soll"
     def is_lane_free(self, lane, x_pos):
@@ -56,6 +58,21 @@ class GameWorld:
                     return False
         return True
         
+
+    def spawn_intial_obstacle(self):
+        current_x = 1000         #Start weiter rechts, damit Runner Platz hat 
+        while current_x < WIDTH + 200:      #Zufällige Lane-Reihenfolge, wo die Obstacles gespawnt werden
+            lanes = list(range(NUM_LANES))
+            random.shuffle(lanes)       #Funktion herausgefunden durch Google Anfrage "Liste neu mischen in pygame"
+
+            for lane in lanes:  
+                if self.is_lane_free(lane, current_x):
+                    obstacle_type = random.choice([OBSTACLE_TYPE_SHORT,OBSTACLE_TYPE_LONG])       #Wähle zufällig zwischen TYPE_LONG und TYPE_SHORT
+                    Obstacle(self.game, current_x, lane, obstacle_type)
+                    break               #Nur ein Hindernis pro X-Position
+
+            current_x += OBSTACLE_GAP
+
     def update(self, dt: float):
         # Ruft die update-Methode in jedem Sprite auf
         self.game.all_sprites.update(dt)
