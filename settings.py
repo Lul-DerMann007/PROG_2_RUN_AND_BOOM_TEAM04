@@ -21,6 +21,7 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 YELLOW = (255, 255, 0)
 ORANGE = (255, 165, 0)
+LIGHTGRAY = (200, 200, 200)
 
 #  Einstellungen Darstellung des Runners
 RUNNER_SIZE = 40
@@ -89,3 +90,7 @@ UI_MARGIN = 20
 UI_LINE_SPACING = 40
 UI_OVERLAY_ALPHA = 200
 
+# Eingabefelder für Spielernamen
+MAX_NAME_LENGTH = 15
+INPUT_BOX_WIDTH = 400
+INPUT_BOX_HEIGHT = 50
