@@ -25,5 +25,3 @@ class Obstacle(pg.sprite.Sprite):
         if self.rect.right<0:           #Obstacle wird entfernt wenn es aus dem Bild ist (nicht weiter rendern)
             self.kill()
 
-
-    #Hinderniss Spawn Logik !Später!

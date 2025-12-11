@@ -13,6 +13,7 @@ class Game:
     def __init__(self):
         # Initialisierung und Fenster erstellen
         pg.init() 
+        self.load_assets()
         
         try:
             pg.mixer.init()
@@ -52,6 +53,16 @@ class Game:
         #Initialisierung von zwei Schriftgrößen (Überschrift + normal)              #eingefügt Jonte 06.12 23:02
         self.font = pg.font.Font(None, UI_FONT_SIZE)  #normale UI schriftgröße
         self.font_large = pg.font.Font(None, UI_FONT_SIZE_LARGE)    #größere UI Schriftgröße/Überschriften
+
+    def load_assets(self):              #Hier später die Bilder drin laden
+        pass
+
+    def load_fallback_images(self):     #Fallback Logik via farbiger Kasten, wenn Bild nicht geladen wird
+        self.runner_blue_img = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))           
+        self.runner_blue_img.fill(BLUE)
+        
+        self.runner_red_img = pg.Surface(RUNNER_SIZE, RUNNER_SIZE)
+        self.runner_red_img.fill(RED)
 
     def start_game(self):
         self.player1.reset()
