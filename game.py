@@ -78,6 +78,17 @@ class Game:
             self.cannon_red_img = pg.image.load('assets/cannon_red.png').convert_alpha()
             self.cannon_red_img = pg.transform.scale(self.cannon_red_img, (CANNON_WIDTH, CANNON_HEIGHT))
 
+            #Sprite Projectil Blue
+            self.projectile_blue_img = pg.image.load('assets/projectile_blue.png').convert_alpha()
+            self.projectile_blue_img = pg.transform.scale(self.projectile_blue_img, (PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
+
+            #Sprite Projectil Red
+            self.projectile_red_img = pg.image.load('assets/projectile_red.png').convert_alpha()
+            self.projectile_red_img = pg.transform.scale(self.projectile_red_img, (PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
+
+            
+
+
 
 
 

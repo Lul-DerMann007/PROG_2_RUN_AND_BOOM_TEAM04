@@ -77,7 +77,7 @@ class Cannon(pg.sprite.Sprite):
         x = self.pos.x - CANNON_WIDTH // 2
         y = self.pos.y
 
-        projectile = Projectile(self.game, x, y)
+        projectile = Projectile(self.game, x, y, self.color)        #Farbe wird an Projectile übergeben
         
         self.shoot_cooldown = CANNON_COOLDOWN       #cooldown setzen
 

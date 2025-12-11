@@ -4,14 +4,18 @@ from settings import *
 
 
 class Projectile(pg.sprite.Sprite):
-    def __init__(self, game, x: float, y: float):
+    def __init__(self, game, x: float, y: float, color):            #Farbe der Cannone wird hier entnommen 
         self.groups = game.all_sprites, game.projectiles
-        super().__init__(self.groups)
+        pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
+        self.color = color
 
-        # Darstellung: kleiner "Ball"
-        self.image = pg.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
-        self.image.fill(PROJECTILE_COLOR)                      # vorher: YELLOW
+        #Grafik der richtigen Farbe laden
+        if self.color == "blue":
+            self.image = self.game.projectile_blue_img.copy()
+        else:
+            self.image = self.game.projectile_red_img.copy()
+
         self.rect = self.image.get_rect(center=(x, y))
 
         # Bewegung
