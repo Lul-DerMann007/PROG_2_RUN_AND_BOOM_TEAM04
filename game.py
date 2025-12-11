@@ -13,8 +13,14 @@ class Game:
     def __init__(self):
         # Initialisierung und Fenster erstellen
         pg.init() 
+
+        self.screen = pg.display.set_mode((WIDTH, HEIGHT))  
+
         self.load_assets()
+        print("BLUE:", self.runner_blue_img.get_size())
         
+        self.all_sprites = pg.sprite.Group()
+
         try:
             pg.mixer.init()
         except Exception:
@@ -55,13 +61,23 @@ class Game:
         self.font_large = pg.font.Font(None, UI_FONT_SIZE_LARGE)    #größere UI Schriftgröße/Überschriften
 
     def load_assets(self):              #Hier später die Bilder drin laden
-        pass
+        try:
+            self.runner_blue_img = pg.image.load('assets/runner_blue.png').convert_alpha()           #Lädt Bilder aus dem Assets Ordner und wandelt Format um
+            self.runner_blue_img = pg.transform.scale(self.runner_blue_img, (RUNNER_WIDTH, RUNNER_HEIGHT))        #Sprite skaliert mit vorgegebenen Größen
+
+            self.runner_red_img = pg.image.load('assets/runner_red.png').convert_alpha()
+            self.runner_red_img = pg.transform.scale(self.runner_red_img, (RUNNER_WIDTH, RUNNER_HEIGHT))
+
+        except Exception as e: 
+            print("Fehler beim Laden der Assets",e)
+            self.load_fallback_images()
+
 
     def load_fallback_images(self):     #Fallback Logik via farbiger Kasten, wenn Bild nicht geladen wird
         self.runner_blue_img = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))           
         self.runner_blue_img.fill(BLUE)
         
-        self.runner_red_img = pg.Surface(RUNNER_SIZE, RUNNER_SIZE)
+        self.runner_red_img = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))
         self.runner_red_img.fill(RED)
 
     def start_game(self):

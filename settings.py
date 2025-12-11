@@ -24,8 +24,10 @@ ORANGE = (255, 165, 0)
 LIGHTGRAY = (200, 200, 200)
 
 #  Einstellungen Darstellung des Runners
-RUNNER_SIZE = 40
-RUNNER_COLOUR = BLUE
+RUNNER_SIZE = 70
+RUNNER_WIDTH = 70
+RUNNER_HEIGHT = 70 
+RUNNER_COLOR = BLUE
 
 # Bewegung des runners
 RUNNER_ACC = 400       # Beschleunigung in pixel pro sekunden, für spätere ziellogik wichtig
@@ -40,13 +42,13 @@ CANNON_HEIGHT = 40
 CANNON_OFFSET = 80 
 CANNON_COOLDOWN = 0.3
 CANNON_SMOOTH_FACTOR = 8.0
-CANNON_COLOUR = RED
+CANNON_COLOR = RED
 
 # Projektil der Kanone 
 PROJECTILE_WIDTH = 10
 PROJECTILE_HEIGHT = 10
 PROJECTILE_SPEED = 600
-PROJECTILE_COLOUR = ORANGE       # Pixel/Sekunde nach links
+PROJECTILE_COLOR = ORANGE       # Pixel/Sekunde nach links
 
 #Ebenen/Lanes System, finale Logik Stand: 16.11 Jonte und Mares
 NUM_LANES = 8
@@ -60,13 +62,13 @@ OBSTACLE_TYPE_LONG = 6      #multiplikator lange hindernisse
 OBSTACLE_GAP  = 250         #mindestasbstand zwischen den blöcken für später
 OBSTACLE_HEIGHT = 90        #Höhe = Ebenenhöhe
 SCROLL_SPEED = 400       # Geschwindigkeit, mit der Hindernisse scrollen
-OBSTACLE_COLOUR = GRAY
+OBSTACLE_COLOR = GRAY
 
 # Einstellungen des Checkpoints
 CHECKPOINT_DISTANCE = 10000
 CHECKPOINT_WIDTH = 60
 CHECKPOINT_HEIGHT = HEIGHT  #evtl. checkpoint größe noch anpassen später, stand jetzt ganzer bildschirm lang
-CHECKPOINT_COLOUR = GREEN
+CHECKPOINT_COLOR = GREEN
 
 # Steuerung (Wird in player.py genutzt)   Änderung Jonte 06.12 20:50 Strings als Pygame Konstanten abgespeichert (ermöglicht den Rollenwechsel)
 PLAYER1_CONTROLS = {

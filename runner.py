@@ -12,15 +12,18 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
 
 class Runner(pg.sprite.Sprite):
    
-    def __init__(self, game, x: float, start_lane: int, controls: dict):
-        self.groups = game.all_sprites
-        super().__init__(self.groups)
-        self.game = game # Referenz auf die Game-Klasse für Scoring
+    def __init__(self, game, x: float, start_lane: int, controls: dict,color):
+        self.groups = game.all_sprites  
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game                # Referenz auf die Game-Klasse für Scoring
         self.controls = controls
+        self.color = color      #Speichert die Farbe des Runners
+
+        if self.color == "blue":
+            self.image = self.game.runner_blue_img.copy()
+        else:
+            self.image = self.game.runner_red_img.copy()
         
-        # Zustand (Attribute)
-        self.image = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))
-        self.image.fill(RUNNER_COLOUR)
         self.rect = self.image.get_rect()
 
         #Lane/Ebenen System
@@ -31,6 +34,8 @@ class Runner(pg.sprite.Sprite):
         self.pos = vec(x, self.get_lane_y(start_lane)) #Position
         self.vel = vec(0, 0) # Velocity (X-Geschwindigkeit)
         self.acc = vec(0, 0)
+        
+
     def get_lane_y(self,lane):
         return lane * LANE_HEIGHT + LANE_HEIGHT // 2    #berechnet y-pixel position in der mitte einer lane
 

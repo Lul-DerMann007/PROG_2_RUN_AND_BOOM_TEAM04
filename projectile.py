@@ -11,7 +11,7 @@ class Projectile(pg.sprite.Sprite):
 
         # Darstellung: kleiner "Ball"
         self.image = pg.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
-        self.image.fill(PROJECTILE_COLOUR)                      # vorher: YELLOW
+        self.image.fill(PROJECTILE_COLOR)                      # vorher: YELLOW
         self.rect = self.image.get_rect(center=(x, y))
 
         # Bewegung

@@ -35,11 +35,13 @@ class GameWorld:
         start_lane = NUM_LANES //2
 
         runner_controls = self.game.current_runner.controls
-        cannon_controls = self.game.current_cannon.controls                          
+        cannon_controls = self.game.current_cannon.controls
+
+        RUNNER_COLOR = self.game.current_runner.color      #Farbe des Runners aus game.py übernehmen                        
         
-        self.runner = Runner(self.game, start_x, start_lane,runner_controls)        
+        self.runner = Runner(self.game, start_x, start_lane,runner_controls, RUNNER_COLOR)    #Übergibt die Farbe an die Runner Klasse damit richtiges Sprite geladen wird     
         self.cannon = Cannon(self.game, start_lane, cannon_controls)             #zugriff für wichtigsten elemente auf game, startpunkt usw.
-        self.checkpoint = Checkpoint(self.game, checkpoint_x)
+        self.checkpoint = Checkpoint(self.game, checkpoint_x) 
 
         self.checkpoint.is_reached = False
         

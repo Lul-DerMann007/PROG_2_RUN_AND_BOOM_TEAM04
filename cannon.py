@@ -21,7 +21,7 @@ class Cannon(pg.sprite.Sprite):
 
         # Darstellung erstmal nur roter kasten
         self.image = pg.Surface((CANNON_WIDTH, CANNON_HEIGHT))
-        self.image.fill(CANNON_COLOUR)
+        self.image.fill(CANNON_COLOR)
         self.rect = self.image.get_rect()
 
         # Lane-System (exakt wie beim Runner)
