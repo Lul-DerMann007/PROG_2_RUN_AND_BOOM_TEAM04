@@ -22,7 +22,7 @@ class GameWorld:
         self.obstacle_spawn_timer: float = 0.0 #Timer für kontinuierliches Spawning  
 
 
-    def setup_round(self):      #Initalisiert neue runde und füllr mit objekten
+    def setup_round(self, runner_color, cannon_color):      #Initalisiert neue runde und füllr mit objekten
         
         # alle Gruppen werden erstmal  geleert
         self.game.all_sprites.empty()       #Entnommen nach KI Feedback ChatGPT. Prompt: "Aus Basis des Codes. Was müssen wir beachten, wenn wir eine neue Runde starten wollen? Halte dich kurz via Stichpunkten "
@@ -37,10 +37,9 @@ class GameWorld:
         runner_controls = self.game.current_runner.controls
         cannon_controls = self.game.current_cannon.controls
 
-        RUNNER_COLOR = self.game.current_runner.color      #Farbe des Runners aus game.py übernehmen                        
-        
-        self.runner = Runner(self.game, start_x, start_lane,runner_controls, RUNNER_COLOR)    #Übergibt die Farbe an die Runner Klasse damit richtiges Sprite geladen wird     
-        self.cannon = Cannon(self.game, start_lane, cannon_controls)             #zugriff für wichtigsten elemente auf game, startpunkt usw.
+
+        self.runner = Runner(self.game, start_x, start_lane,runner_controls, runner_color)    #Übergibt die Farbe an die Runner Klasse damit richtiges Sprite geladen wird     
+        self.cannon = Cannon(self.game, start_lane, cannon_controls, cannon_color)             #zugriff für wichtigsten elemente auf game, startpunkt usw.
         self.checkpoint = Checkpoint(self.game, checkpoint_x) 
 
         self.checkpoint.is_reached = False

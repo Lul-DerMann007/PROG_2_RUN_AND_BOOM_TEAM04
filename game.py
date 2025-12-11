@@ -62,11 +62,24 @@ class Game:
 
     def load_assets(self):              #Hier später die Bilder drin laden
         try:
+            #Sprite Runner Blue
             self.runner_blue_img = pg.image.load('assets/runner_blue.png').convert_alpha()           #Lädt Bilder aus dem Assets Ordner und wandelt Format um
             self.runner_blue_img = pg.transform.scale(self.runner_blue_img, (RUNNER_WIDTH, RUNNER_HEIGHT))        #Sprite skaliert mit vorgegebenen Größen
 
+            #Sprite Runner Red
             self.runner_red_img = pg.image.load('assets/runner_red.png').convert_alpha()
             self.runner_red_img = pg.transform.scale(self.runner_red_img, (RUNNER_WIDTH, RUNNER_HEIGHT))
+
+            #Sprite Cannon Blue
+            self.cannon_blue_img = pg.image.load('assets/cannon_blue.png').convert_alpha()
+            self.cannon_blue_img = pg.transform.scale(self.cannon_blue_img, (CANNON_WIDTH, CANNON_HEIGHT))
+
+            #Sprite Cannon Red
+            self.cannon_red_img = pg.image.load('assets/cannon_red.png').convert_alpha()
+            self.cannon_red_img = pg.transform.scale(self.cannon_red_img, (CANNON_WIDTH, CANNON_HEIGHT))
+
+
+
 
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)
@@ -101,7 +114,10 @@ class Game:
         self.last_point_reason = None
         self.set_won_message =  None
 
-        self.world.setup_round()
+        runner_color = self.current_runner.color
+        cannon_color = self.current_cannon.color
+
+        self.world.setup_round(runner_color, cannon_color)  #Übergabe der Farben              Tim-    Was ist mit Controls müssen die auch wieder übergeben werden?
 
 
     def checkpoint_reached(self):                               #Logik des Runden Siegs vom Runner bei erreichtem Checkpoint

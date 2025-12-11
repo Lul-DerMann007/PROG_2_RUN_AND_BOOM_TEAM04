@@ -13,16 +13,20 @@ def smooth_target_transition(current_Y: float, target_y: float, dt: float, smoot
 
 class Cannon(pg.sprite.Sprite):                     
     #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
-    def __init__(self, game, start_lane: int,controls: dict):              
+    def __init__(self, game, start_lane: int,controls: dict,color):              
         self.groups = game.all_sprites
-        super().__init__(self.groups)    
+        pg.sprite.Sprite.__init__(self, self.groups)  
         self.game = game
         self.controls = controls
+        self.color = color 
+        
+        if self.color == "blue":
+            self.image = self.game.cannon_blue_img.copy()
+        else:
+            self.image = self.game.cannon_red_img.copy()
 
-        # Darstellung erstmal nur roter kasten
-        self.image = pg.Surface((CANNON_WIDTH, CANNON_HEIGHT))
-        self.image.fill(CANNON_COLOR)
         self.rect = self.image.get_rect()
+
 
         # Lane-System (exakt wie beim Runner)
         self.current_lane = start_lane
