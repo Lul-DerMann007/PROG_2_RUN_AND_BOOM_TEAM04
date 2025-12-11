@@ -100,6 +100,11 @@ class Game:
             self.checkpoint_img = pg.image.load('assets/checkpoint.png').convert_alpha()
             self.checkpoint_img = pg.transform.scale(self.checkpoint_img, (CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT))
 
+            #Sprite Background
+            self.background_img = pg.image.load('assets/background.png').convert()
+            self.background_img = pg.transform.scale(self.background_img, (WIDTH, HEIGHT))
+
+
 
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)

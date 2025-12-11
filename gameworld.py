@@ -117,7 +117,7 @@ class GameWorld:
         # Szenario 3: Projektil trifft Hindernis        !Später! Erst nach Hinderniss Spawn Logik
         
     def draw(self, screen):
-        screen.fill(BLACK)
+        screen.blit(self.game.background_img, (0, 0))
         
         # Zeichnen der Bahnen/Linien 
         for i in range(NUM_LANES + 1):
