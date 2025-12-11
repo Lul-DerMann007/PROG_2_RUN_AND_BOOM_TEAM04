@@ -104,6 +104,11 @@ class Game:
             self.background_img = pg.image.load('assets/background.png').convert()
             self.background_img = pg.transform.scale(self.background_img, (WIDTH, HEIGHT))
 
+            #Sprite Menu-Screen
+
+            self.menu_img = pg.image.load('assets/menu.png').convert()
+            self.menu_img = pg.transform.scale(self.menu_img, (WIDTH, HEIGHT))
+
 
 
         except Exception as e: 
@@ -260,10 +265,10 @@ class Game:
             
     def draw_menu(self):
         # Zeichnet das Hauptmenü
-        self.screen.fill(BLACK)
-        title_surface = self.font_large.render("RUN & BOOM", True, WHITE)
-        title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 3))
-        self.screen.blit(title_surface, title_rect)
+        self.screen.blit(self.menu_img, (0, 0))
+        #title_surface = self.font_large.render("RUN & BOOM", True, WHITE)
+        #title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 3))
+        #self.screen.blit(title_surface, title_rect)
         
         instructions = [
             "Spieler 1 (WASD): Runner in Runde 1",
