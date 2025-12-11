@@ -37,16 +37,16 @@ RUNNER_SMOOTH_FACTOR = 10.0         #zwischen den ebenen smoother übergang
 RUNNER_MAX_SCREEN = 4 / 5   # Wie weit der Runner nach rechts laufen darf (Anteil der Bildschirmbreite)
 
 # Einstellungen der Kanone
-CANNON_WIDTH = 60
-CANNON_HEIGHT = 40
+CANNON_WIDTH = 90
+CANNON_HEIGHT = 90
 CANNON_OFFSET = 80 
 CANNON_COOLDOWN = 0.3
 CANNON_SMOOTH_FACTOR = 8.0
 CANNON_COLOR = RED
 
 # Projektil der Kanone 
-PROJECTILE_WIDTH = 10
-PROJECTILE_HEIGHT = 10
+PROJECTILE_WIDTH = 32
+PROJECTILE_HEIGHT = 32
 PROJECTILE_SPEED = 600
 PROJECTILE_COLOR = ORANGE       # Pixel/Sekunde nach links
 
