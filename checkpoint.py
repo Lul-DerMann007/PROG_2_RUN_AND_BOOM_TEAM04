@@ -3,16 +3,18 @@ from settings import *
 class Checkpoint(pg.sprite.Sprite):
     def __init__(self, game, x: float):
         self.groups = game.all_sprites
-        super().__init__(self.groups)
+        pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         
+        #Grafik wird geladen
+        self.image = self.game.checkpoint_img.copy()
+        self.rect = self.image.get_rect()
+
+        self.rect.center = (x,HEIGHT // 2)
         # Attribute passend zu, UML-Design
         self.is_reached: bool = False
         
-        # Visuelle Darstellung (Platzhalter)
-        self.image = pg.Surface((CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT))
-        self.image.fill(GREEN)
-        self.rect = self.image.get_rect(topleft=(x, 0))
+        
         
     def update(self, dt: float):
        

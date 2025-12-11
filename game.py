@@ -89,14 +89,16 @@ class Game:
             #Sprite Obstacle Short
             self.obstacle_short_img = pg.image.load('assets/obstacle_short.png').convert_alpha()
             self.obstacle_short_img = pg.transform.scale(self.obstacle_short_img, (
-                OBSTACLE_TYPE_SHORT * OBSTACLE_BASE_WIDTH, OBSTACLE_HEIGHT
-            ))
+                OBSTACLE_TYPE_SHORT * OBSTACLE_BASE_WIDTH, OBSTACLE_HEIGHT))
 
             #Sprite Obstacle Long
             self.obstacle_long_img = pg.image.load('assets/obstacle_long.png').convert_alpha()
             self.obstacle_long_img = pg.transform.scale(self.obstacle_long_img, (
-                OBSTACLE_TYPE_LONG * OBSTACLE_BASE_WIDTH, OBSTACLE_HEIGHT
-            ))
+                OBSTACLE_TYPE_LONG * OBSTACLE_BASE_WIDTH, OBSTACLE_HEIGHT))
+
+            #Sprite Checkpoint 
+            self.checkpoint_img = pg.image.load('assets/checkpoint.png').convert_alpha()
+            self.checkpoint_img = pg.transform.scale(self.checkpoint_img, (CHECKPOINT_WIDTH, CHECKPOINT_HEIGHT))
 
 
         except Exception as e: 
