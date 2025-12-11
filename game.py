@@ -105,9 +105,15 @@ class Game:
             self.background_img = pg.transform.scale(self.background_img, (WIDTH, HEIGHT))
 
             #Sprite Menu-Screen
-
             self.menu_img = pg.image.load('assets/menu.png').convert()
             self.menu_img = pg.transform.scale(self.menu_img, (WIDTH, HEIGHT))
+
+            #Victory-Screen
+            self.victory_blue_img = pg.image.load('assets/victory_blue.png').convert()
+            self.victory_blue_img = pg.transform.scale(self.victory_blue_img, (WIDTH, HEIGHT))
+            
+            self.victory_red_img = pg.image.load('assets/victory_red.png').convert()
+            self.victory_red_img = pg.transform.scale(self.victory_red_img, (WIDTH, HEIGHT))
 
 
 
@@ -328,27 +334,25 @@ class Game:
         self.screen.blit(continue_surface, continue_rect)
         
     def draw_game_over(self):
-        # Zeichnet den Endscreen des Matches
-        self.screen.fill(BLACK)
-        
+          # Zeige das passende Victory-Bild
         if self.player1.set_score > self.player2.set_score:
-            winner = self.player1
+            self.screen.blit(self.victory_blue_img, (0, 0))
         else:
-            winner = self.player2
+            self.screen.blit(self.victory_red_img, (0, 0))
             
-        text = f"{winner.name} GEWINNT DAS MATCH!"
-        text_surface = self.font_large.render(text, True, GREEN)
-        text_rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
-        self.screen.blit(text_surface, text_rect)
+        #text = f"{winner.name} GEWINNT DAS MATCH!"
+        #text_surface = self.font_large.render(text, True, GREEN)
+        #text_rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
+        #self.screen.blit(text_surface, text_rect)
         
         score_text = f"Satz-Endstand: {self.player1.set_score} : {self.player2.set_score}"
         score_surface = self.font.render(score_text, True, WHITE)
         score_rect = score_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2))
         self.screen.blit(score_surface, score_rect)
         
-        restart_surface = self.font.render("LEERTASTE fuer neues Spiel", True, WHITE)
-        restart_rect = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
-        self.screen.blit(restart_surface, restart_rect)
+        #restart_surface = self.font.render("LEERTASTE fuer neues Spiel", True, WHITE)
+        #restart_rect = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
+        #self.screen.blit(restart_surface, restart_rect)
 
     def run(self):      #Gameloop (läuft so lange self.running True ist)
         while self.running:                     
