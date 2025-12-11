@@ -212,7 +212,7 @@ class Game:
             info_rect = info_surf.get_rect(center=(WIDTH // 2, 30))
             self.screen.blit(info_surf, info_rect)
             
-            role_text = f"Runner: {self.current_runner.name} | Kanone: {self.current_cannon.name}"
+            role_text = f"Runner: {self.current_runner.color.upper()} | Kanone: {self.current_cannon.color.upper()}"
             role_surf = self.font.render(role_text, True, YELLOW)
             role_r = role_surf.get_rect(center=(WIDTH//2, 70))
             self.screen.blit(role_surf, role_r)
@@ -250,16 +250,18 @@ class Game:
         self.screen.blit(overlay, (0, 0))
         
         # Nachricht über Runden-Ergebnis
-        if self.world.checkpoint and self.world.checkpoint.is_reached:
-            text = f"{self.current_runner.name} erreicht das Ziel!"
-            color = BLUE if self.current_runner == self.player1 else RED
-        else:
-            if self.last_point_reason == "pushed_off":
-                text = "Runner vom Bildschirm gedrängt!"
-            else:
+        if self.world.checkpoint.is_reached: # Wird aufgerufen, wenn der Runner den Checkpoint erreicht 
+            runner_color_text = "BLAU" if self.current_runner.color == "blue" else "ROT" # Definition der Variabel: derzeitiger Runner blau = "BLAU", derzeitiger Runner rot = "ROT"
+            text = f"{runner_color_text} erreicht das Ziel!" # Textausgabe: "ROT / BLAU erreicht das Ziel!"
+            color = BLUE if self.current_runner.color == "blue" else RED # Festlegung der Farbe: derzeitige Runner Farbe blau => Farbe BLUE, derzeitige RUNNER Farbe rot => Farbe RED
+
+        else:  # Alternative, wenn Runner nicht Checkpoint erreicht (aus dem linken Bildschrimrand fällt)
+            if self.last_point_reason == "pushed_off":   # Bedingung: Wenn letzter Grund von Punkverlust "pushed off" des Runners ist:
+                text = "Runner vom Bildschirm gedrängt!" 
+            else:                                        # Letzte Möglichkeit: Runner wurde von Projektil abgeschossen
                 text = "Runner abgeschossen!"
-            color = RED if self.current_cannon == self.player2 else BLUE
-            
+            color = BLUE if self.current_cannon.color == "blue" else RED # Festlegung der Farbe: derzeitige Runner Farbe blau => Farbe BLUE, derzeitige RUNNER Farbe rot => Farbe RED
+
         text_surface = self.font_large.render(text, True, color)
         text_rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 80))
         self.screen.blit(text_surface, text_rect)
