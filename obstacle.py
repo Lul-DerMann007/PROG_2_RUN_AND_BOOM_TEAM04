@@ -4,16 +4,20 @@ from settings import *
 class Obstacle(pg.sprite.Sprite):
     def __init__(self, game, x: float, lane: int, obstacle_type: int):
         self.groups = game.all_sprites, game.obstacles
-        super().__init__(self.groups)
-        
+        pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
+        
+        if obstacle_type == OBSTACLE_TYPE_SHORT:
+            self.image = self.game.obstacle_short_img.copy()
+        else:  
+            self.image = self.game.obstacle_long_img.copy()
+        
+        
         self.obstacle_type = obstacle_type        #Obstacle Typ speichern
 
         obstacle_width = obstacle_type * OBSTACLE_BASE_WIDTH
         
-        
-        self.image = pg.Surface((obstacle_width, OBSTACLE_HEIGHT))
-        self.image.fill(GRAY)
+        self.rect = self.image.get_rect()
         
         y = lane * LANE_HEIGHT + LANE_HEIGHT // 2               # Position in der Bahn berechnen
         self.rect = self.image.get_rect(center=(int(x), y))

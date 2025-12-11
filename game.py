@@ -86,10 +86,17 @@ class Game:
             self.projectile_red_img = pg.image.load('assets/projectile_red.png').convert_alpha()
             self.projectile_red_img = pg.transform.scale(self.projectile_red_img, (PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
 
-            
+            #Sprite Obstacle Short
+            self.obstacle_short_img = pg.image.load('assets/obstacle_short.png').convert_alpha()
+            self.obstacle_short_img = pg.transform.scale(self.obstacle_short_img, (
+                OBSTACLE_TYPE_SHORT * OBSTACLE_BASE_WIDTH, OBSTACLE_HEIGHT
+            ))
 
-
-
+            #Sprite Obstacle Long
+            self.obstacle_long_img = pg.image.load('assets/obstacle_long.png').convert_alpha()
+            self.obstacle_long_img = pg.transform.scale(self.obstacle_long_img, (
+                OBSTACLE_TYPE_LONG * OBSTACLE_BASE_WIDTH, OBSTACLE_HEIGHT
+            ))
 
 
         except Exception as e: 
