@@ -39,6 +39,9 @@ class Cannon(pg.sprite.Sprite):
         self._left_was_pressed = False
         self.shoot_cooldown = 0.0   
 
+        self.key_down_pressed = False
+        self.key_up_pressed = False        
+
         self.rect.center = (int(self.pos.x), int(self.pos.y))
 
     def get_lane_y(self, lane: int) -> float:
@@ -113,3 +116,22 @@ class Cannon(pg.sprite.Sprite):
         for p in self.projectiles:
             p.kill()
         self.projectiles = []
+
+    def get_keys(self):
+        keys = pg.key.get_pressed()
+        
+        if keys[self.controls['up']]:
+            if not self.key_up_pressed: 
+                if self.target_lane > 0:
+                    self.target_lane -= 1
+                self.key_up_pressed = True
+        else:
+            self.key_up_pressed = False
+
+        if keys[self.controls['down']]:
+            if not self.key_down_pressed:
+                if self.target_lane < NUM_LANES - 1:
+                    self.target_lane += 1
+                self.key_down_pressed = True
+        else:
+            self.key_down_pressed = False        
