@@ -260,7 +260,7 @@ class Game:
     def handle_name_input_event(self, event): # Verarbeitet Tastatureingaben im Namenseingabe-Modus
         if event.key == pg.K_RETURN:
             self.start_game()
-        elif event.key == pg.K_TAB:
+        elif event.key == pg.K_TAB:     # Wechsel zwischen Eingabefeldern mit TAB
             self.active_input_box = 2 if self.active_input_box == 1 else 1
         elif event.key == pg.K_BACKSPACE:
             if self.active_input_box == 1:
