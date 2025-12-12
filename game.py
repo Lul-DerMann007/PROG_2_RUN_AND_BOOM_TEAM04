@@ -50,8 +50,13 @@ class Game:
         self.current_round_num = 0 
         self.game_state = "menu"
         self.last_point_reason = None
-        self.set_won_message = None            
-                            
+        self.set_won_message = None
+
+        # Namenseingabe-Variablen
+        self.input_boxes = []
+        self.active_input_box = None
+        self.player1_name_input = ""
+        self.player2_name_input = ""               
 
         #Spielwelt erstellen
         self.world = GameWorld(self)
@@ -129,7 +134,33 @@ class Game:
         self.runner_red_img = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))
         self.runner_red_img.fill(RED)
 
+    def init_name_input(self):  # Eingabefelder für Spielernamen initialisieren
+        self.game_state = "name_input"
+        self.player1_name_input = ""
+        self.player2_name_input = ""
+        
+        # Eingabefeld für Spieler 1 (BLAU)
+        input_box1_x = (WIDTH - INPUT_BOX_WIDTH) // 2
+        input_box1_y = HEIGHT // 2 - 80
+        self.input_box1_rect = pg.Rect(input_box1_x, input_box1_y, INPUT_BOX_WIDTH, INPUT_BOX_HEIGHT)
+        
+        # Eingabefeld für Spieler 2 (ROT)
+        input_box2_x = (WIDTH - INPUT_BOX_WIDTH) // 2
+        input_box2_y = HEIGHT // 2 + 80
+        self.input_box2_rect = pg.Rect(input_box2_x, input_box2_y, INPUT_BOX_WIDTH, INPUT_BOX_HEIGHT)
+        
+        # Setze erstes Eingabefeld als aktiv
+        self.active_input_box = 1
+    
     def start_game(self):
+        # Namen übernehmen oder Standardnamen verwenden
+        player1_name = self.player1_name_input.strip() if self.player1_name_input.strip() else "Spieler 1" # 
+        player2_name = self.player2_name_input.strip() if self.player2_name_input.strip() else "Spieler 2"
+        
+        # Namen in die Player-Objekte übernehmen
+        self.player1.name = player1_name
+        self.player2.name = player2_name
+        
         self.player1.reset()
         self.player2.reset()
 
@@ -213,7 +244,10 @@ class Game:
                 
                 if self.game_state == "menu":
                     if event.key == pg.K_SPACE:
-                        self.start_game()
+                        self.init_name_input() # Wechsel zu Namenseingabe-Modus
+
+                elif self.game_state == "name_input":
+                    self.handle_name_input_event(event)
                 
                 elif self.game_state == "round_end":
                     if event.key == pg.K_SPACE:
@@ -224,6 +258,22 @@ class Game:
                         self.reset_game()
         return True
 
+    def handle_name_input_event(self, event): # Verarbeitet Tastatureingaben im Namenseingabe-Modus
+        if event.key == pg.K_RETURN:
+            self.start_game()
+        elif event.key == pg.K_TAB:
+            self.active_input_box = 2 if self.active_input_box == 1 else 1
+        elif event.key == pg.K_BACKSPACE:
+            if self.active_input_box == 1:
+                self.player1_name_input = self.player1_name_input[:-1]
+            else:
+                self.player2_name_input = self.player2_name_input[:-1]
+        else:
+            if event.unicode.isprintable():
+                if self.active_input_box == 1 and len(self.player1_name_input) < MAX_NAME_LENGTH:
+                    self.player1_name_input += event.unicode
+                elif self.active_input_box == 2 and len(self.player2_name_input) < MAX_NAME_LENGTH:
+                    self.player2_name_input += event.unicode
             
     def update(self,dt):
         # zentrale Update-Logik, aufgerufen pro Frame (dt=Deltatime), steuert wann die welt aktualisiert wird
@@ -238,6 +288,8 @@ class Game:
 
         if self.game_state == "menu":
             self.draw_menu()
+        elif self.game_state == "name_input":
+            self.draw_name_input()            
         elif self.game_state == "round_end":
             self.draw_round_end()
         elif self.game_state == "game_over":
@@ -246,13 +298,16 @@ class Game:
         pg.display.flip()
 
     def draw_ui(self):
-        p1_title = self.font.render("SPIELER 1 (BLAU)", True, BLUE)
+        if self.game_state not in ["running", "round_end"]:
+            return
+            
+        p1_title = self.font.render(f"{self.player1.name.upper()} (BLAU)", True, BLUE) # Anzeige Spieler 1 Name
         p1_score = self.font.render(f"Sätze: {self.player1.set_score} | Runden: {self.player1.round_score}", True, BLUE) 
         
         self.screen.blit(p1_title, (UI_MARGIN, UI_MARGIN))
         self.screen.blit(p1_score, (UI_MARGIN, UI_MARGIN + 35))
         
-        p2_title = self.font.render("SPIELER 2 (ROT)", True, RED)
+        p2_title = self.font.render(f"{self.player2.name.upper()} (ROT)", True, RED) # Anzeige Spieler 2 Name
         p2_score = self.font.render(f"Sätze: {self.player2.set_score} | Runden: {self.player2.round_score}", True, RED)
         
         self.screen.blit(p2_title, (WIDTH - 250, UI_MARGIN)) 
@@ -268,6 +323,58 @@ class Game:
             role_surf = self.font.render(role_text, True, YELLOW)
             role_r = role_surf.get_rect(center=(WIDTH//2, 70))
             self.screen.blit(role_surf, role_r)
+
+    # Der Folgende Abschnitt zeichnet die Namenseingabe-Maske. Dieser wurde mit KI generiert mit dem folgenden Prompt:
+    # "Schreibe pygame Methode draw_name_input(): Schwarzer Screen, zentrierter Titel "SPIELERNAMEN EINGEBEN", zwei Eingabefelder
+    # mit Labels "Spieler 1 (BLAU)" und "Spieler 2 (ROT)", aktives Feld in Spielerfarbe umrandet, inaktives weiß, eingegebener Text zentriert anzeigen, unten gelbe Anweisungen."
+    def draw_name_input(self):
+        """Zeichnet die Namenseingabe-Maske"""
+        self.screen.fill(BLACK)
+        
+        # Titel
+        title_surface = self.font_large.render("SPIELERNAMEN EINGEBEN", True, WHITE)
+        title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 3 - 50))
+        self.screen.blit(title_surface, title_rect)
+        
+        # Spieler 1 Label
+        player1_label = self.font.render("Spieler 1 (BLAU):", True, BLUE)
+        player1_label_rect = player1_label.get_rect(center=(WIDTH // 2, self.input_box1_rect.y - 30))
+        self.screen.blit(player1_label, player1_label_rect)
+        
+        # Spieler 1 Eingabefeld
+        color1 = BLUE if self.active_input_box == 1 else WHITE
+        pg.draw.rect(self.screen, color1, self.input_box1_rect, 3)
+        
+        # Spieler 1 Text
+        text1_surface = self.font.render(self.player1_name_input, True, WHITE)
+        text1_rect = text1_surface.get_rect(center=self.input_box1_rect.center)
+        self.screen.blit(text1_surface, text1_rect)
+        
+        # Spieler 2 Label
+        player2_label = self.font.render("Spieler 2 (ROT):", True, RED)
+        player2_label_rect = player2_label.get_rect(center=(WIDTH // 2, self.input_box2_rect.y - 30))
+        self.screen.blit(player2_label, player2_label_rect)
+        
+        # Spieler 2 Eingabefeld
+        color2 = RED if self.active_input_box == 2 else WHITE
+        pg.draw.rect(self.screen, color2, self.input_box2_rect, 3)
+        
+        # Spieler 2 Text
+        text2_surface = self.font.render(self.player2_name_input, True, WHITE)
+        text2_rect = text2_surface.get_rect(center=self.input_box2_rect.center)
+        self.screen.blit(text2_surface, text2_rect)
+        
+        # Anweisungen
+        instructions = [
+            "ENTER zum Bestätigen | BACKSPACE zum Löschen",
+            "Leer lassen für Standardnamen"
+        ]
+        y = HEIGHT - 120
+        for line in instructions:
+            text_surface = self.font.render(line, True, YELLOW)
+            text_rect = text_surface.get_rect(center=(WIDTH // 2, y))
+            self.screen.blit(text_surface, text_rect)
+            y += UI_LINE_SPACING
             
     def draw_menu(self):
         # Zeichnet das Hauptmenü
@@ -302,9 +409,9 @@ class Game:
         self.screen.blit(overlay, (0, 0))
         
         # Nachricht über Runden-Ergebnis
-        if self.world.checkpoint.is_reached: # Wird aufgerufen, wenn der Runner den Checkpoint erreicht 
-            runner_color_text = "BLAU" if self.current_runner.color == "blue" else "ROT" # Definition der Variabel: derzeitiger Runner blau = "BLAU", derzeitiger Runner rot = "ROT"
-            text = f"{runner_color_text} erreicht das Ziel!" # Textausgabe: "ROT / BLAU erreicht das Ziel!"
+        if self.world.checkpoint.is_reached:
+            runner_name = self.current_runner.name # Definition der Variabel: runner_name = Name des derzeitigen Runners
+            text = f"{runner_name} erreicht das Ziel!" # Textausgabe: "ROT / BLAU erreicht das Ziel!"
             color = BLUE if self.current_runner.color == "blue" else RED # Festlegung der Farbe: derzeitige Runner Farbe blau => Farbe BLUE, derzeitige RUNNER Farbe rot => Farbe RED
 
         else:  # Alternative, wenn Runner nicht Checkpoint erreicht (aus dem linken Bildschrimrand fällt)

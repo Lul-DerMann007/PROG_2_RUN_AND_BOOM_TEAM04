@@ -8,7 +8,7 @@ FPS = 60             # Ziel-Bildwiederholrate
 TITLE = "Run & Boom" # Fenstertitel
 
 #Score-Regeln / Satz System             # Hinzugefügt von Jonte 06.12 21:00
-ROUNDS_TO_WIN_SET = 3                       
+ROUNDS_TO_WIN_SET = 3
 SETS_TO_WIN_MATCH = 3
 
 # Farben (R, G, B)
