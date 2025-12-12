@@ -35,9 +35,19 @@ class Runner(pg.sprite.Sprite):
         self.vel = vec(0, 0) # Velocity (X-Geschwindigkeit)
         self.acc = vec(0, 0)
         
-
     def get_lane_y(self,lane):
         return lane * LANE_HEIGHT + LANE_HEIGHT // 2    #berechnet y-pixel position in der mitte einer lane
+    
+    #Funktion um "unmögliche" Lane-Wechsel zu verhindern 
+    def is_target_lane_safe(self, target_lane_index):
+        target_y = self.get_lane_y(target_lane_index) #Hier wird die Ziel Position bestimmt
+        check_rect = pg.Rect(0, 0, RUNNER_SIZE - 10, RUNNER_SIZE - 10)      #Es wird ein "Testrechteck", welches kleiner als der Runner ist erzeugt 
+        check_rect.center = (self.pos.x, target_y)      #Testrechteck wird dort plaziert wo der Runner nachdem Spurwechsel wäre 
+        hits = [obs for obs in self.game.obstacles if check_rect.colliderect(obs.rect)]     #Hier wird Kollision geprüft 
+        if hits: 
+            return False        #Übergabe an get_keys "Lane ist blocked"
+        return True             #Übergabe an get_keys "Lane ist Frei"
+
 
     def update(self, dt: float):
         self.get_keys()     #eingaben verarbeiten
@@ -76,16 +86,19 @@ class Runner(pg.sprite.Sprite):
             self.vel.x = RUNNER_SPEED
         
        #Lane wechsel, nur möglich wenn man nicht  gerade wechselt
-
         if self.current_lane == self.target_lane:
 
-            if keys[self.controls['up']]:
+            if keys[self.controls['up']]:       #Prüft Wechsel nach Oben
                 if self.target_lane > 0:
-                    self.target_lane -= 1
+                    new_lane = self.target_lane - 1 
+                    if self.is_target_lane_safe(new_lane):      #Prüft ob die Lane frei ist mit der is_target_lane_safe Funktion 
+                        self.target_lane = new_lane             # Wechsel wird freigeben 
 
-            if keys[self.controls['down']]:
+            if keys[self.controls['down']]:     #Prüft Wechsel nach Unten 
                 if self.target_lane < NUM_LANES - 1:
-                    self.target_lane += 1     
+                    new_lane = self.target_lane + 1 
+                    if self.is_target_lane_safe(new_lane):      
+                        self.target_lane = new_lane     
 
     def collide_with_obstacle(self, obstacle):  #Kollision mit Hinderniss
       if self.rect.colliderect(obstacle.rect):
