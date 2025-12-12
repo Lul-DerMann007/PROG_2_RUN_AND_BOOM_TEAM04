@@ -2,15 +2,6 @@ import pygame as pg
 from pygame.math import Vector2 as vec
 from settings import *
 from projectile import Projectile
-
-def smooth_target_transition(current_Y: float, target_y: float, dt: float, smooth_factor):      
-    #Funktion ist Ki-generiert und übernommen aus der runner class. Prompt ist dort beigelegt.
-    if abs(current_Y - target_y) > 1.0:
-        diff = target_y - current_Y
-        return current_Y + diff * smooth_factor * dt
-    else:
-        return target_y
-
 class Cannon(pg.sprite.Sprite):                     
     #Kanone am rechten Rand, die lane-basiert vertikal bewegt wird und mit Pfeil-links schießt.
     def __init__(self, game, start_lane: int,controls: dict,color):              
@@ -96,15 +87,9 @@ class Cannon(pg.sprite.Sprite):
 
         # Vertikale Bewegung – identisch zum Runner
         target_y = self.get_lane_y(self.target_lane)
-        self.pos.y = smooth_target_transition(self.pos.y, target_y, dt, CANNON_SMOOTH_FACTOR)
-        
-        # if self.pos.y == target_y:
-        #     self.current_lane=self.target_lane
-
-        # Sanfter Lane-Wechsel
-        target_y = self.get_lane_y(self.target_lane)
         diff = target_y - self.pos.y
-        self.pos.y += diff * (LANE_SWITCH_SPEED * 1.2) * dt # 20% schneller
+
+        self.pos.y += diff * (LANE_SWITCH_SPEED_CANNON) * dt
         
         if abs(diff) < 1:
             self.pos.y = target_y

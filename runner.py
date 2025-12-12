@@ -3,13 +3,6 @@ import pygame as pg
 from pygame.math import Vector2 as vec
 from settings import *
 
-def smooth_target_transition(current_Y: float, target_y: float, dt: float, smooth_factor: float):          # die Funktion ist Ki generiert mit Claude AI. Prompt: "Erstelle eine Python Funktion auf Basis des beigelegten Codes, mit den notwendigen Parametern,++ wie die aktuelle Y-Position, die Ziel Y Position und Deltatime. Diese Funktion soll die aktuelle Y-Position des Runners und später der Cannon sanft in Richtung der Ziel-Y Position bewegen. Dadurch sollte der Übergang maximal fließend wirken. Die Bewegung sollte entsprechend von der Delta Time (dt) aus dem Game Loop abhängen. Erkläre bitte zusätzlich, wie man die Funktion anschließend in der Klasse implementiert" 
-    if abs(current_Y - target_y) > 1.0:
-        diff = target_y - current_Y
-        return current_Y + diff * smooth_factor * dt                           #die Funktion sollte noch in die Klasse selber implementiert werden
-    else:
-        return target_y
-
 class Runner(pg.sprite.Sprite):
    
     def __init__(self, game, x: float, start_lane: int, controls: dict,color):
@@ -62,11 +55,13 @@ class Runner(pg.sprite.Sprite):
             self.game.cannon_scores(reason = "pushed_off")
             return
         
-        #vertikale Bewegung + smoothing funktion für kanone und runner
+        #vertikale Bewegung + smoothing kanone und runner. Keine externe smooth_fuktion. KI-generiert mit Claude AI. Prompt: Analysiere nun auf Basis der anderen Module das Modul runner. Suche nach Funktionen und Aspekten, die unlogisch sind und liefer entsprechende Verbesserungen.
         target_y= self.get_lane_y(self.target_lane)
-        self.pos.y = smooth_target_transition(self.pos.y, target_y, dt, RUNNER_SMOOTH_FACTOR)
+        diff = target_y - self.pos.y
 
-        if abs(self.pos.y - target_y) < 1:          #genauers einrasten
+        self.pos.y += diff * LANE_SWITCH_SPEED_RUNNER * dt
+
+        if abs(self.pos.y - target_y) < 1:          #genauers einrasten, wenn nah genug dran
             self.pos.y = target_y
             self.current_lane = self.target_lane
 

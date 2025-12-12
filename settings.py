@@ -36,6 +36,7 @@ RUNNER_SMOOTH_FACTOR = 10.0     # zwischen den ebenen smoother übergang
 RUNNER_MAX_SCREEN = 4 / 5       # Wie weit der Runner nach rechts laufen darf (Anteil der Bildschirmbreite)
 RUNNER_LEFT_PACE_FACTOR = 1.8   # Geschwindigkeitsmultiplikator, wenn der Runner nach links läuft
 RUNNER_MAX_X_LEFT_FACTOR = 0.4  # Wie weit der Runner nach links laufen darf = Gamer Over
+LANE_SWITCH_SPEED_RUNNER = 25
 
 # Einstellungen der Kanone
 CANNON_WIDTH = 90
@@ -44,6 +45,7 @@ CANNON_OFFSET = 80
 CANNON_COOLDOWN = 0.3
 CANNON_SMOOTH_FACTOR = 8.0
 CANNON_COLOR = RED
+LANE_SWITCH_SPEED_CANNON = 27
 
 # Projektil der Kanone 
 PROJECTILE_WIDTH = 32
@@ -54,7 +56,7 @@ PROJECTILE_COLOR = ORANGE       # Pixel/Sekunde nach links
 #Ebenen/Lanes System, finale Logik Stand: 16.11 Jonte und Mares
 NUM_LANES = 8
 LANE_HEIGHT = HEIGHT // NUM_LANES 
-LANE_SWITCH_SPEED = 25
+
 
 #Hindernisse =  NEU: eingeführte Konstanzen
 OBSTACLE_BASE_WIDTH = 60    #Basis mit der multibliziert wird
