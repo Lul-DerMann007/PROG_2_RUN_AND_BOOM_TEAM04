@@ -17,7 +17,6 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))  
 
         self.load_assets()
-        print("BLUE:", self.runner_blue_img.get_size())
         
         self.all_sprites = pg.sprite.Group()
 
