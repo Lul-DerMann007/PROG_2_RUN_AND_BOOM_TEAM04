@@ -98,8 +98,17 @@ class Cannon(pg.sprite.Sprite):
         target_y = self.get_lane_y(self.target_lane)
         self.pos.y = smooth_target_transition(self.pos.y, target_y, dt, CANNON_SMOOTH_FACTOR)
         
-        if self.pos.y == target_y:
-            self.current_lane=self.target_lane
+        # if self.pos.y == target_y:
+        #     self.current_lane=self.target_lane
+
+        # Sanfter Lane-Wechsel
+        target_y = self.get_lane_y(self.target_lane)
+        diff = target_y - self.pos.y
+        self.pos.y += diff * (LANE_SWITCH_SPEED * 1.2) * dt # 20% schneller
+        
+        if abs(diff) < 1:
+            self.pos.y = target_y
+            self.current_lane = self.target_lane
 
         # x bleibt fix, nur y ändert sich
         self.rect.center= (int(self.pos.x), int(self.pos.y))
