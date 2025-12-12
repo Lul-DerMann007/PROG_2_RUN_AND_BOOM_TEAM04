@@ -117,8 +117,11 @@ class GameWorld:
         for projectile in hits: # Iteration aller berührten Projektile des Runners (hits)
             projectile.check_collision_with_runner(self.runner) # Kollision: Projektil - Runner: Weitergabe zu 'check_collision_with_runner' für Reaktion jedes Projektils: Berührung mit Runner? (Wenn ja: Punkt an Kanone + Löschen Projektil)
 
-        # Szenario 3: Projektil trifft Hindernis        !Später! 
-        
+        # Szenario 3: Projektil trifft Hindernis
+        for projectile in self.game.projectiles:
+            for obstacle in self.game.obstacles:
+                projectile.check_collision_with_obstacle(obstacle)
+    
     def draw(self, screen):
         screen.blit(self.game.background_img, (0, 0))
         
