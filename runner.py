@@ -69,6 +69,11 @@ class Runner(pg.sprite.Sprite):
         
         max_x = WIDTH * RUNNER_MAX_SCREEN   # Maximalposition nach rechts: einstellbar über RUNNER_MAX_SCREEN in settings.py
 
+        # Game Over wenn der Runner zu weit nach links läuft
+        if self.pos.x < -RUNNER_WIDTH * RUNNER_MAX_X_LEFT_FACTOR:
+            self.game.cannon_scores(reason="pushed_off")
+            return
+        
         if self.pos.x > max_x:
             self.pos.x = max_x
             self.vel.x = 0
@@ -83,6 +88,7 @@ class Runner(pg.sprite.Sprite):
             # Horizontale Bewegung
         if keys[self.controls['left']]:
             self.vel.x = -RUNNER_SPEED
+            self.acc.x = -RUNNER_ACC * RUNNER_LEFT_PACE_FACTOR  #Abbremsung wenn nach links gelaufen wird 
         if keys[self.controls['right']]:
             self.vel.x = RUNNER_SPEED
         

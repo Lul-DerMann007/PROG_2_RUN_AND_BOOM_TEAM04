@@ -30,11 +30,13 @@ RUNNER_HEIGHT = 70
 RUNNER_COLOR = BLUE
 
 # Bewegung des runners
-RUNNER_ACC = 400       # Beschleunigung in pixel pro sekunden, für spätere ziellogik wichtig
-RUNNER_FRICTION = -0.5     #reibung bzw. abbremsung
+RUNNER_ACC = 400                # Beschleunigung in pixel pro sekunden, für spätere ziellogik wichtig
+RUNNER_FRICTION = -0.5          # reibung bzw. abbremsung
 RUNNER_SPEED = 600
-RUNNER_SMOOTH_FACTOR = 10.0         #zwischen den ebenen smoother übergang
-RUNNER_MAX_SCREEN = 4 / 5   # Wie weit der Runner nach rechts laufen darf (Anteil der Bildschirmbreite)
+RUNNER_SMOOTH_FACTOR = 10.0     # zwischen den ebenen smoother übergang
+RUNNER_MAX_SCREEN = 4 / 5       # Wie weit der Runner nach rechts laufen darf (Anteil der Bildschirmbreite)
+RUNNER_LEFT_PACE_FACTOR = 1.8   # Geschwindigkeitsmultiplikator, wenn der Runner nach links läuft
+RUNNER_MAX_X_LEFT_FACTOR = 0.4  # Wie weit der Runner nach links laufen darf = Gamer Over
 
 # Einstellungen der Kanone
 CANNON_WIDTH = 90
