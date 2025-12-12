@@ -124,12 +124,17 @@ class GameWorld:
                 projectile.check_collision_with_obstacle(obstacle) # Methodenaufruf
     
     def draw(self, screen):
-        screen.blit(self.game.background_img, (0, 0))
+        screen.blit(self.game.background_img, (0, 0))       #1. schicht: hintergrund
         
-        # Zeichnen der Bahnen/Linien 
-        for i in range(NUM_LANES + 1):
-            y = i * LANE_HEIGHT
-            pg.draw.line(screen, DARKGRAY, (0, y), (WIDTH, y), 1)
+        self.game.obstacles.draw(screen)            #2. Schicht Hindernisse
+
+        if self.runner:                                 #3. Schicht runner
+            screen.blit(self.runner.image, self.runner.rect)
         
-        # Zeichnen aller Sprites
-        self.game.all_sprites.draw(screen)
+        self.game.projectiles.draw(screen)          #4. Schicht Projektile
+
+        if self.checkpoint:                         #5. schicht checkpoint
+            screen.blit(self.checkpoint.image, self.checkpoint.rect)
+
+        if self.cannon:                             #6. schicht cannon
+            screen.blit(self.cannon.image, self.cannon.rect)
