@@ -106,15 +106,18 @@ class GameWorld:
             self.checkpoint.check_reached(self.runner)                               #Erreichen des Checkpoints prüfen
 
     def check_collisions(self):
-        # Szenario 1: Runner trifft Hindernis       !Später! Erst nach Hinderniss Spawn Logik
+        # Szenario 1: Runner trifft Hindernis
+        hits = pg.sprite.spritecollide(self.runner, self.game.obstacles, False)
+        for obstacle in hits:
+            self.runner.collide_with_obstacle(obstacle)
 
         # Szenario 2: Projektil trifft Runner
         hits = pg.sprite.spritecollide(self.runner, self.game.projectiles, False) # hits (Liste aller berührten Projektile vom Runner): Pygame-Funktion prüft auf Kollision von 'runner' und 'projectiles'
-            # spritecollider: Pygame-Funktion zum Finden von Kollisionen von Runner mit Projektilen
+            # spritecollider: Pygame-Funktion zum Finden von Kollisionen 
         for projectile in hits: # Iteration aller berührten Projektile des Runners (hits)
             projectile.check_collision_with_runner(self.runner) # Kollision: Projektil - Runner: Weitergabe zu 'check_collision_with_runner' für Reaktion jedes Projektils: Berührung mit Runner? (Wenn ja: Punkt an Kanone + Löschen Projektil)
 
-        # Szenario 3: Projektil trifft Hindernis        !Später! Erst nach Hinderniss Spawn Logik
+        # Szenario 3: Projektil trifft Hindernis        !Später! 
         
     def draw(self, screen):
         screen.blit(self.game.background_img, (0, 0))

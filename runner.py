@@ -88,9 +88,34 @@ class Runner(pg.sprite.Sprite):
                     self.target_lane += 1     
 
     def collide_with_obstacle(self, obstacle):  #Kollision mit Hinderniss
-        # Wird von der GameWorld aufgerufen + muss noch hinzugefügt werden !Später!
-        pass
+        if self.rect.colliderect(obstacle.rect):
         
+
+            if self.vel.x > 0:
+                overlap = self.rect.right - obstacle.rect.left          #überschneidung von links?
+                if  overlap > 0:
+                    self.pos.x = obstacle.rect.left - RUNNER_WIDTH // 2         #Runner Center links davon setzen
+                    self.vel.x = 0
+
+            elif self.vel.x < 0:
+                overlap =  obstacle.rect.right - self.rect.left     #überschneidung  von rechts?
+            
+                if overlap > 0:
+                    self.pos.x = obstacle.rect.right + RUNNER_WIDTH // 2
+                    self.vel.x = 0              #Bewegung nach links stoppen
+
+            else:
+                distance_to_left = self.rect.centerx - obstacle.rect.left           #wenn er keine geschwindigkeit hat
+                distance_to_right = obstacle.rect.right - self.rect.centerx
+
+                if distance_to_left < distance_to_right:                        #zur näheren seite schieben
+                    self.pos.x = obstacle.rect.left - RUNNER_SIZE // 2          
+                else:
+                    self.pos.x = obstacle.rect.right + RUNNER_SIZE // 2
+
+            self.rect.center = (int(self.pos.x)), int(self.pos.y)
+
+            
     def reset_position(self, x, lane):
         self.current_lane = lane
         self.target_lane = lane
