@@ -49,7 +49,7 @@ class Projectile(pg.sprite.Sprite):
         self.kill_me()
 
     def check_collision_with_obstacle(self, obstacle):
-        if self.active and self.rect.colliderect(obstacle.rect):
+        if self.active and self.rect.colliderect(obstacle.rect): # self.active verhindert, dass ein Projekti, das im selben Frame 2 Hindernisse trifft, doppelt zählt
             self.deactivate()
             
     def deactivate(self):
