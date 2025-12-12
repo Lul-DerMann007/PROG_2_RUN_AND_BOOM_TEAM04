@@ -32,7 +32,6 @@ RUNNER_COLOR = BLUE
 # Bewegung des runners
 RUNNER_ACC = 2200               # Beschleunigung in pixel pro sekunden, für spätere ziellogik wichtig
 RUNNER_FRICTION = -6.0          # reibung bzw. abbremsung
-RUNNER_SPEED = 600
 RUNNER_SMOOTH_FACTOR = 10.0     # zwischen den ebenen smoother übergang
 RUNNER_MAX_SCREEN = 4 / 5       # Wie weit der Runner nach rechts laufen darf (Anteil der Bildschirmbreite)
 RUNNER_LEFT_PACE_FACTOR = 1.8   # Geschwindigkeitsmultiplikator, wenn der Runner nach links läuft

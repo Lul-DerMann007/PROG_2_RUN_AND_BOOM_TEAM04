@@ -54,7 +54,9 @@ class Runner(pg.sprite.Sprite):
         self.get_keys()     #eingaben verarbeiten
         
         #Horizontale Bewegung
-        self.pos.x += self.vel.x * dt 
+        self.acc.x += self.vel.x * RUNNER_FRICTION      #reibung anwenden
+        self.vel.x += self.acc.x * dt                   #geschwindigkeit aktualisieren
+        self.pos.x += self.vel.x * dt + 0.5 * self.acc.x * dt ** 2      #position aktualisieren
 
         if self.pos.x < -RUNNER_SIZE:                               #links raus wenn runner mehr als seine eigene größe links raus ist
             self.game.cannon_scores(reason = "pushed_off")
@@ -62,18 +64,21 @@ class Runner(pg.sprite.Sprite):
         
         #vertikale Bewegung + smoothing funktion für kanone und runner
         target_y= self.get_lane_y(self.target_lane)
-        self.pos.y = smooth_target_transition(self.pos.y, target_y, dt,RUNNER_SMOOTH_FACTOR)
-        
-        if self.pos.y == target_y:
+        self.pos.y = smooth_target_transition(self.pos.y, target_y, dt, RUNNER_SMOOTH_FACTOR)
+
+        if abs(self.pos.y - target_y) < 1:          #genauers einrasten
+            self.pos.y = target_y
             self.current_lane = self.target_lane
+
+        max_x = WIDTH * RUNNER_MAX_SCREEN       #begrenzung auf 4/5 Maximalposition nach rechts: einstellbar über RUNNER_MAX_SCREEN in settings.py
         
-        max_x = WIDTH * RUNNER_MAX_SCREEN   # Maximalposition nach rechts: einstellbar über RUNNER_MAX_SCREEN in settings.py
 
         # Game Over wenn der Runner zu weit nach links läuft
         if self.pos.x < -RUNNER_WIDTH * RUNNER_MAX_X_LEFT_FACTOR:
             self.game.cannon_scores(reason="pushed_off")
             return
         
+        #stoppen am rechten rand / der rechten begrenzung
         if self.pos.x > max_x:
             self.pos.x = max_x
             self.vel.x = 0
@@ -84,33 +89,35 @@ class Runner(pg.sprite.Sprite):
         self.acc = vec(0, 0)
         keys = pg.key.get_pressed()
         
-        self.vel.x = 0  
             # Horizontale Bewegung
         if keys[self.controls['left']]:
-            self.vel.x = -RUNNER_SPEED
             self.acc.x = -RUNNER_ACC * RUNNER_LEFT_PACE_FACTOR  #Abbremsung wenn nach links gelaufen wird 
         if keys[self.controls['right']]:
-            self.vel.x = RUNNER_SPEED
+            self.acc.x = RUNNER_ACC
         
        #Lane wechsel, nur möglich wenn man nicht  gerade wechselt
-        if self.current_lane == self.target_lane:
+        can_switch = abs(self.current_lane - self.target_lane) < 0.1      #Idee von Claude AI. Prompt: Wie kann man die Runner classer vor allem im movement noch weiter optimieren?
 
-            if keys[self.controls['up']]:       #Prüft Wechsel nach Oben
-                if not self.key_states['up']:
-                    if self.current_lane == self.target_lane:
-                        new_lane = self.target_lane - 1
-                        if new_lane >= 0 and self.is_target_lane_safe(new_lane):      #Prüft ob die Lane frei ist mit der is_target_lane_safe Funktion 
+        if keys[self.controls['up']]:       #Prüft Wechsel nach Oben
+            if not self.key_states['up']:       #kei ngedrückt halten erlauben
+                if can_switch:
+                    new_lane = self.target_lane - 1
+                    if new_lane >= 0 and self.is_target_lane_safe(new_lane):      #Prüft ob die Lane frei ist mit der is_target_lane_safe Funktion 
                             self.target_lane = new_lane             # Wechsel wird freigeben
-                    self.key_states['up'] = True
-            else:
+                self.key_states['up'] = True  
+        else:
                 self.key_states['up'] = False
 
-            if keys[self.controls['down']]:     #Prüft Wechsel nach Unten 
-                if self.target_lane < NUM_LANES - 1:
-                    new_lane = self.target_lane + 1 
-                    if self.is_target_lane_safe(new_lane):      
-                        self.target_lane = new_lane     
-
+        if keys[self.controls['down']]:     #Prüft Wechsel nach Unten 
+                if not self.key_states['down']:               #kein gedrückt halten erlauben
+                    if can_switch:
+                        new_lane = self.target_lane + 1 
+                        if new_lane < NUM_LANES and self.is_target_lane_safe(new_lane):      
+                            self.target_lane = new_lane     
+                self.key_states['down'] = True
+        else:
+            self.key_states['down'] = False
+    
     def collide_with_obstacle(self, obstacle):  #Kollision mit Hinderniss
       if self.rect.colliderect(obstacle.rect):
             left_overlap = self.rect.right - obstacle.rect.left
