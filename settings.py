@@ -30,8 +30,8 @@ RUNNER_HEIGHT = 70
 RUNNER_COLOR = BLUE
 
 # Bewegung des runners
-RUNNER_ACC = 400                # Beschleunigung in pixel pro sekunden, für spätere ziellogik wichtig
-RUNNER_FRICTION = -0.5          # reibung bzw. abbremsung
+RUNNER_ACC = 2200               # Beschleunigung in pixel pro sekunden, für spätere ziellogik wichtig
+RUNNER_FRICTION = -6.0          # reibung bzw. abbremsung
 RUNNER_SPEED = 600
 RUNNER_SMOOTH_FACTOR = 10.0     # zwischen den ebenen smoother übergang
 RUNNER_MAX_SCREEN = 4 / 5       # Wie weit der Runner nach rechts laufen darf (Anteil der Bildschirmbreite)
@@ -49,20 +49,21 @@ CANNON_COLOR = RED
 # Projektil der Kanone 
 PROJECTILE_WIDTH = 32
 PROJECTILE_HEIGHT = 32
-PROJECTILE_SPEED = 600
+PROJECTILE_SPEED = 1150
 PROJECTILE_COLOR = ORANGE       # Pixel/Sekunde nach links
 
 #Ebenen/Lanes System, finale Logik Stand: 16.11 Jonte und Mares
 NUM_LANES = 8
 LANE_HEIGHT = HEIGHT // NUM_LANES 
-LANE_SWITCH_SPEED = 0.15
+LANE_SWITCH_SPEED = 25
 
 #Hindernisse =  NEU: eingeführte Konstanzen
 OBSTACLE_BASE_WIDTH = 60    #Basis mit der multibliziert wird
 OBSTACLE_TYPE_SHORT = 2     #multiplikator kurze Hindernisse
 OBSTACLE_TYPE_LONG = 6      #multiplikator lange hindernisse
-OBSTACLE_GAP  = 250         #mindestasbstand zwischen den blöcken für später
+OBSTACLE_GAP  = 250         #mindestasbstand zwischen den blöcken beim spawnin
 OBSTACLE_HEIGHT = 90        #Höhe = Ebenenhöhe
+OBSTACLE_SPAWN_INTERVAL = 0.55  #Neues Obstacle balancing tool ausgelagert aus gameworld
 SCROLL_SPEED = 400       # Geschwindigkeit, mit der Hindernisse scrollen
 OBSTACLE_COLOR = GRAY
 

@@ -18,7 +18,7 @@ class GameWorld:
         
         # Zustände der Welt
         self.scroll_speed: float = SCROLL_SPEED     #tempo der welt relativ zum runner
-        self.obstacle_spawn_interval: float = 1.0   #wichtiges Balancing Tool für spätere Tests
+        self.obstacle_spawn_interval: float = OBSTACLE_SPAWN_INTERVAL   #wichtiges Balancing Tool für spätere Tests
         self.obstacle_spawn_timer: float = 0.0 #Timer für kontinuierliches Spawning  
 
 
@@ -45,11 +45,11 @@ class GameWorld:
         self.checkpoint.is_reached = False
         
         self.obstacle_spawn_timer = 0               #Timer zurücksetzen und intiale Hinderisse spawnen
-        self.spawn_intial_obstacle() 
+        self.spawn_initial_obstacle() 
 
     #Funktion is_lane_free ist Ki-generiert mit Claude AI. Prompt:"Basierend auf dem bestehenden Code und der vorhandenen Obstacle Logik. Entwerfe eine Methode, die prüft ob die Lane, in der ein neues Hindernis spawnen soll, frei ist. Ergänze wie und wo diese Methode implementiert werden soll"
     def is_lane_free(self, lane, x_pos):
-        target_lane_y = lane * LANE_HEIGHT//2               #Y-Koordinate an der Mitte der gewünschten Spur
+        target_lane_y = lane * LANE_HEIGHT + LANE_HEIGHT // 2               #Y-Koordinate an der Mitte der gewünschten Spur
 
         for obs in self.game.obstacles:
             obs_lane_y = obs.rect.centery                   #vergleich mit y-koordinate
@@ -60,8 +60,8 @@ class GameWorld:
         return True
         
 
-    def spawn_intial_obstacle(self):
-        current_x = 1000         #Start weiter rechts, damit Runner Platz hat 
+    def spawn_initial_obstacle(self):
+        current_x = 600         #Start weiter rechts, damit Runner Platz hat 
         while current_x < WIDTH + 200:      #Zufällige Lane-Reihenfolge, wo die Obstacles gespawnt werden
             lanes = list(range(NUM_LANES))
             random.shuffle(lanes)       #Funktion herausgefunden durch Google Anfrage "Liste neu mischen in pygame"
@@ -72,18 +72,17 @@ class GameWorld:
                     Obstacle(self.game, current_x, lane, obstacle_type)
                     break               #Nur ein Hindernis pro X-Position
 
-            current_x += OBSTACLE_GAP
+            current_x += random.randint(300,500)
 
 
     def spawn_obstacle(self,dt):        #Spawnt immer neue Obstacles während dem Spiel        
         self.obstacle_spawn_timer += dt
-
         if self.obstacle_spawn_timer >= self.obstacle_spawn_interval: 
             self.obstacle_spawn_timer = 0.0      #setzt den Timer zurück 
 
             spawn_x = WIDTH + 100       # Spawn außerhalb vom Bildschirm 
 
-            for _ in range(5):  
+            for _ in range(9):  
                 lane = random.randint(0,NUM_LANES -1)
 
                 if self.is_lane_free(lane, spawn_x):    #Zufälliges Hindernis (SHORT oder LONG)
