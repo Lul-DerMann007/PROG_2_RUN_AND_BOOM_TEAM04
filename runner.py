@@ -18,6 +18,7 @@ class Runner(pg.sprite.Sprite):
         self.game = game                # Referenz auf die Game-Klasse für Scoring
         self.controls = controls
         self.color = color      #Speichert die Farbe des Runners
+        self.key_states =  {'up': False, 'down': False}
 
         if self.color == "blue":
             self.image = self.game.runner_blue_img.copy()
@@ -89,10 +90,14 @@ class Runner(pg.sprite.Sprite):
         if self.current_lane == self.target_lane:
 
             if keys[self.controls['up']]:       #Prüft Wechsel nach Oben
-                if self.target_lane > 0:
-                    new_lane = self.target_lane - 1 
-                    if self.is_target_lane_safe(new_lane):      #Prüft ob die Lane frei ist mit der is_target_lane_safe Funktion 
-                        self.target_lane = new_lane             # Wechsel wird freigeben 
+                if not self.key_states['up']:
+                    if self.current_lane == self.target_lane:
+                        new_lane = self.target_lane - 1
+                        if new_lane >= 0 and self.is_target_lane_safe(new_lane):      #Prüft ob die Lane frei ist mit der is_target_lane_safe Funktion 
+                            self.target_lane = new_lane             # Wechsel wird freigeben
+                    self.key_states['up'] = True
+            else:
+                self.key_states['up'] = False
 
             if keys[self.controls['down']]:     #Prüft Wechsel nach Unten 
                 if self.target_lane < NUM_LANES - 1:
