@@ -88,32 +88,24 @@ class Runner(pg.sprite.Sprite):
                     self.target_lane += 1     
 
     def collide_with_obstacle(self, obstacle):  #Kollision mit Hinderniss
-        if self.rect.colliderect(obstacle.rect):
-        
-
-            if self.vel.x > 0:
-                overlap = self.rect.right - obstacle.rect.left          #überschneidung von links?
-                if  overlap > 0:
-                    self.pos.x = obstacle.rect.left - RUNNER_WIDTH // 2         #Runner Center links davon setzen
+      if self.rect.colliderect(obstacle.rect):
+            left_overlap = self.rect.right - obstacle.rect.left
+            right_overlap = obstacle.rect.right - self.rect.left
+            
+            if left_overlap < right_overlap:
+                self.pos.x = obstacle.rect.left - RUNNER_WIDTH // 2
+                if self.vel.x > 0:
                     self.vel.x = 0
 
-            elif self.vel.x < 0:
-                overlap =  obstacle.rect.right - self.rect.left     #überschneidung  von rechts?
-            
-                if overlap > 0:
-                    self.pos.x = obstacle.rect.right + RUNNER_WIDTH // 2
-                    self.vel.x = 0              #Bewegung nach links stoppen
-
             else:
-                distance_to_left = self.rect.centerx - obstacle.rect.left           #wenn er keine geschwindigkeit hat
-                distance_to_right = obstacle.rect.right - self.rect.centerx
+                target_x = obstacle.rect.right + RUNNER_WIDTH // 2
+                self.pos.x = target_x                              
+                if self.vel.x < 0:  
+                    self.vel.x = 0
+                elif abs(self.vel.x) < 10:
+                    self.vel.x = 0
 
-                if distance_to_left < distance_to_right:                        #zur näheren seite schieben
-                    self.pos.x = obstacle.rect.left - RUNNER_SIZE // 2          
-                else:
-                    self.pos.x = obstacle.rect.right + RUNNER_SIZE // 2
-
-            self.rect.center = (int(self.pos.x)), int(self.pos.y)
+            self.rect.center = self.pos
 
             
     def reset_position(self, x, lane):
