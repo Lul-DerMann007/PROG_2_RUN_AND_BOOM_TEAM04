@@ -129,12 +129,16 @@ class Game:
             #Chechpoint reached Sound
             self.sfx_checkpoint = self._try_load_sound('assets/checkpoint.wav')
 
+            #Hintergrundmusik
+            self.music_file = "assets/music.wav"
+
             #Lautstärke anpassen
             if self.sfx_lane_switch: self.sfx_lane_switch.set_volume(0.3)           #Lane-Switch    Sound
             if self.sfx_proj_hit_runner: self.sfx_proj_hit_runner.set_volume(0.5)   #Hit            Sound
             if self.sfx_shoot_blue: self.sfx_shoot_blue.set_volume(0.5)             #Shoot-Blue     Sound
             if self.sfx_shoot_red: self.sfx_shoot_red.set_volume(0.5)               #Shoot-Red      Sound
             if self.sfx_checkpoint: self.sfx_checkpoint.set_volume(0.1)             #Checkpoint     Sound
+
 
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)
@@ -211,6 +215,13 @@ class Game:
         cannon_color = self.current_cannon.color
 
         self.world.setup_round(runner_color, cannon_color)  #Übergabe der Farben              Tim-    Was ist mit Controls müssen die auch wieder übergeben werden?
+
+        if os.path.exists(self.music_file):
+            pg.mixer_music.load(self.music_file)        #Lädt die Datei
+            pg.mixer.music.set_volume(0.1)
+            pg.mixer_music.play(-1)     #-1 bedeutet Endlosschleife
+        else:
+            print(f"Musikdatei nicht gefunden: {self.music_file} ")
 
 
     def checkpoint_reached(self):                               #Logik des Runden Siegs vom Runner bei erreichtem Checkpoint
