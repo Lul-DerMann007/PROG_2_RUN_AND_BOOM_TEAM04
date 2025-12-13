@@ -225,6 +225,7 @@ class Game:
 
 
     def checkpoint_reached(self):                               #Logik des Runden Siegs vom Runner bei erreichtem Checkpoint
+        pg.mixer.music.stop()
         if self.sfx_checkpoint: self.sfx_checkpoint.play()
         self.last_point_reason = None   
         self.current_runner.win_round()
@@ -236,6 +237,7 @@ class Game:
         self.process_round_result(winner=self.current_cannon)
 
     def process_round_result(self, winner):
+        pg.mixer.music.stop()
         self.game_state =  "round_end"
         self.set_won_message = None
 
