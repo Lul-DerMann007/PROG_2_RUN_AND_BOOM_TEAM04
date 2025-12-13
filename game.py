@@ -407,7 +407,7 @@ class Game:
         
         # Anweisungen
         instructions = [
-            "ENTER zum Bestätigen | BACKSPACE zum Löschen",
+            "ENTER zum starten der Runde / TAB zum Wechseln des Eingabefelds / BACKSPACE zum Löschen",
             "Leer lassen für Standardnamen"
         ]
         y = HEIGHT - 120
@@ -421,7 +421,7 @@ class Game:
         # Zeichnet das Hauptmenü
         self.screen.blit(self.menu_img, (0, 0))
         #title_surface = self.font_large.render("RUN & BOOM", True, WHITE)
-        #title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 3))
+        #title_rect = title_surface.getf_rect(center=(WIDTH // 2, HEIGHT // 3))
         #self.screen.blit(title_surface, title_rect)
         
         instructions = [
@@ -430,7 +430,7 @@ class Game:
             "Rollenwechsel nach jeder Runde!",
             "",
             f"Ziel: {ROUNDS_TO_WIN_SET} Runden = 1 Satz",
-            f"Matchsieg: {SETS_TO_WIN_MATCH} Saetze",
+            f"Matchsieg: {SETS_TO_WIN_MATCH} Sätze",
             "",
             "LEERTASTE zum Starten"
         ]
@@ -477,7 +477,7 @@ class Game:
             score_rect = score_surf.get_rect(center=(WIDTH // 2, HEIGHT // 2))
             self.screen.blit(score_surf, score_rect)
         
-        continue_surface = self.font.render("LEERTASTE fuer naechste Runde", True, WHITE)
+        continue_surface = self.font.render("LEERTASTE für nächste Runde", True, WHITE)
         continue_rect = continue_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 80))
         self.screen.blit(continue_surface, continue_rect)
         
@@ -500,7 +500,7 @@ class Game:
         score_rect = score_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2))
         self.screen.blit(score_surface, score_rect)
         
-        restart_surface = self.font.render("LEERTASTE fuer neues Spiel", True, WHITE)
+        restart_surface = self.font.render("LEERTASTE für neues Spiel", True, WHITE)
         restart_rect = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
         self.screen.blit(restart_surface, restart_rect)
 
