@@ -126,6 +126,9 @@ class Game:
             self.sfx_shoot_blue = self._try_load_sound('assets/shoot_blue.wav')
             self.sfx_shoot_red = self._try_load_sound('assets/shoot_red.wav')
 
+            #Chechpoint reached Sound
+            self.sfx_checkpoint = self._try_load_sound('assets/checkpoint.wav')
+
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)
             self.load_fallback_images()
@@ -204,6 +207,7 @@ class Game:
 
 
     def checkpoint_reached(self):                               #Logik des Runden Siegs vom Runner bei erreichtem Checkpoint
+        if self.sfx_checkpoint: self.sfx_checkpoint.play()
         self.last_point_reason = None   
         self.current_runner.win_round()
         self.process_round_result(winner=self.current_runner)   
