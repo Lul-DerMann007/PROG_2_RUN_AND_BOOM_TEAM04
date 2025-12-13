@@ -39,27 +39,6 @@ class Cannon(pg.sprite.Sprite):
         #Y-Position in der Mitte einer Lane.
         return lane * LANE_HEIGHT + LANE_HEIGHT // 2
 
-    def handle_input(self):
-        keys = pg.key.get_pressed()
-        # Nur wenn wir die Ziel-Lane erreicht haben, darf eine neue gewählt werden
-        if self.current_lane == self.target_lane:
-
-            # eine Lane nach oben (entspricht Runner: W/SPACE) 'up' und 'down' implementieren, da wir tasten übergeben wollen
-            if keys[self.controls['up']]:                                                                                      
-                if self.target_lane > 0:
-                    self.target_lane -= 1
-
-            # eine Lane nach unten (entspricht Runner: S)
-            if keys[self.controls['down']]:   
-                if self.target_lane < NUM_LANES - 1:
-                    self.target_lane += 1
-
-        # Schießen mit linkem Pfeil (mit Debounce) bzw. A bei WASD 
-        if keys[self.controls['left']] and not self._left_was_pressed:
-            self.shoot()
-
-        # Tastenzustand für das nächste Frame merken, verhindert das dauerhafte schießen        #Anregung von ChatGPT. Prompt: mit welcher pygame funktion kann man abfragen, ob eine taste im Zustand gedrückt ist?
-        self._left_was_pressed = keys[self.controls['left']]                                                  #Antwort von ChatGPT: "Funktion: pygame.key.get_pressed()--> gibt eine Liste zurück, die den Zustand der Taste enthält"
 
     def shoot(self):
         # Erzeugt ein Projektil und fügt es in die Sprite-Gruppen der GameWorld ein.
@@ -84,7 +63,7 @@ class Cannon(pg.sprite.Sprite):
 
     def update(self, dt: float):
         # Lane-basierte Bewegung wie beim Runner + Schuss-Cooldown.
-        self.handle_input()
+        self.get_keys()
 
         # Cooldown herunterzählen
         if self.shoot_cooldown > 0.0:
@@ -118,7 +97,8 @@ class Cannon(pg.sprite.Sprite):
             p.kill()
         self.projectiles = []
 
-    def get_keys(self):
+    def get_keys(self):                   #Anregung von ChatGPT. Prompt: mit welcher pygame funktion kann man abfragen, ob eine taste im Zustand gedrückt ist?
+                                                      #Antwort von ChatGPT: "Funktion: pygame.key.get_pressed()--> gibt eine Liste zurück, die den Zustand der Taste enthält"
         keys = pg.key.get_pressed()
         
         if keys[self.controls['up']]:
@@ -135,4 +115,9 @@ class Cannon(pg.sprite.Sprite):
                     self.target_lane += 1
                 self.key_down_pressed = True
         else:
-            self.key_down_pressed = False        
+            self.key_down_pressed = False
+
+        if keys[self.controls['left']] and not self._left_was_pressed:
+            self.shoot()
+
+        self._left_was_pressed = keys[self.controls['left']]
