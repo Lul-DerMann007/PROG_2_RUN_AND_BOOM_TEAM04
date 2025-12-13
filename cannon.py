@@ -75,6 +75,13 @@ class Cannon(pg.sprite.Sprite):
         
         self.shoot_cooldown = CANNON_COOLDOWN       #cooldown setzen
 
+        if self.color == "blue":
+            s = getattr(self.game, 'sfx_shoot_blue', None)
+        else: 
+            s = getattr(self.game, 'sfx_shoot_red', None)
+
+        if s: s.play()
+
     def update(self, dt: float):
         # Lane-basierte Bewegung wie beim Runner + Schuss-Cooldown.
         self.handle_input()

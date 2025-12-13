@@ -122,7 +122,9 @@ class Game:
             #Projectile-Hit-Runner Sound
             self.sfx_proj_hit_runner = self._try_load_sound('assets/hit.wav')
 
-
+            #Shoot Sounds für beide Cannon
+            self.sfx_shoot_blue = self._try_load_sound('assets/shoot_blue.wav')
+            self.sfx_shoot_red = self._try_load_sound('assets/shoot_red.wav')
 
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)
