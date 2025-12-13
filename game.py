@@ -118,16 +118,23 @@ class Game:
 
             #Lane-Switch-Sound                                                          Sounds werden in die Variablen geladen
             self.sfx_lane_switch = self._try_load_sound('assets/lane_switch.wav')
-
+            
             #Projectile-Hit-Runner Sound
             self.sfx_proj_hit_runner = self._try_load_sound('assets/hit.wav')
-
+            
             #Shoot Sounds für beide Cannon
             self.sfx_shoot_blue = self._try_load_sound('assets/shoot_blue.wav')
             self.sfx_shoot_red = self._try_load_sound('assets/shoot_red.wav')
 
             #Chechpoint reached Sound
             self.sfx_checkpoint = self._try_load_sound('assets/checkpoint.wav')
+
+            #Lautstärke anpassen
+            if self.sfx_lane_switch: self.sfx_lane_switch.set_volume(0.3)           #Lane-Switch    Sound
+            if self.sfx_proj_hit_runner: self.sfx_proj_hit_runner.set_volume(0.5)   #Hit            Sound
+            if self.sfx_shoot_blue: self.sfx_shoot_blue.set_volume(0.5)             #Shoot-Blue     Sound
+            if self.sfx_shoot_red: self.sfx_shoot_red.set_volume(0.5)               #Shoot-Red      Sound
+            if self.sfx_checkpoint: self.sfx_checkpoint.set_volume(0.1)             #Checkpoint     Sound
 
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)
