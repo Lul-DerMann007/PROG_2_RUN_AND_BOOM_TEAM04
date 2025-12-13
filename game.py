@@ -266,6 +266,7 @@ class Game:
             self.current_cannon = self.player1
     
     def reset_game(self):
+        pg.mixer.music.stop()
         self.game_state = "menu"
         self.player1.reset()
         self.player2.reset()
