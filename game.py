@@ -1,6 +1,7 @@
 # game.py
 
 import pygame as pg
+import os
 from settings import *
 from gameworld import GameWorld
 from player import Player
@@ -12,14 +13,8 @@ class Game:
     
     def __init__(self):
         # Initialisierung und Fenster erstellen
-        pg.init() 
-
-        self.screen = pg.display.set_mode((WIDTH, HEIGHT))  
-
-        self.load_assets()
-        
-        self.all_sprites = pg.sprite.Group()
-
+        pg.mixer.pre_init(44100, -16, 2, 512)
+        pg.init()
         try:
             pg.mixer.init()
         except Exception:
@@ -36,6 +31,8 @@ class Game:
         self.all_sprites = pg.sprite.Group()    #alle sprites werden in einer gruppe gespeichert (sehr leicht so aufzurufen)
         self.obstacles = pg.sprite.Group()      #nur für hindernisse (kollisionen)  !Spätere Implementierung!
         self.projectiles = pg.sprite.Group()    #nur für projektile (kollisionen) !Spätere Implementierung!
+
+        self.load_assets()
         
         #Player Objekte erstellen
         self.player1 = Player("Spieler 1", PLAYER1_CONTROLS, "blue")
@@ -119,12 +116,26 @@ class Game:
             self.victory_red_img = pg.image.load('assets/victory_red.png').convert()
             self.victory_red_img = pg.transform.scale(self.victory_red_img, (WIDTH, HEIGHT))
 
+            #Lane-Switch-Sound                                                          Sounds werden in die Variablen geladen
+            self.sfx_lane_switch = self._try_load_sound('assets/lane_switch.wav')
 
 
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)
             self.load_fallback_images()
 
+    #Sound Lade Funktion teilweise Hilfe durch KI
+    def _try_load_sound(self, path):
+        if not os.path.exists(path):
+            print(f"Sound nicht gefunden (ignoriert): {path}")           
+            return None
+        try:
+            snd = pg.mixer.Sound(path)
+            return snd
+        except Exception as e:
+            print(f"Konnte Sound nicht laden: {path} - Fehler: {e}")
+            return None
+            
 
     def load_fallback_images(self):     #Fallback Logik via farbiger Kasten, wenn Bild nicht geladen wird
         self.runner_blue_img = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))           

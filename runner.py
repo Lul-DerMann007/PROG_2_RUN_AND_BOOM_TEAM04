@@ -99,6 +99,10 @@ class Runner(pg.sprite.Sprite):
                     new_lane = self.target_lane - 1
                     if new_lane >= 0 and self.is_target_lane_safe(new_lane):      #Prüft ob die Lane frei ist mit der is_target_lane_safe Funktion 
                             self.target_lane = new_lane             # Wechsel wird freigeben
+
+                            s = getattr(self.game, 'sfx_lane_switch', None)   #Sound Effekte für Lane Swap (Up), kommt nur wenn ein gültiger Sound geladen wurde
+                            if s: s.play()
+
                 self.key_states['up'] = True  
         else:
                 self.key_states['up'] = False
@@ -108,7 +112,11 @@ class Runner(pg.sprite.Sprite):
                     if can_switch:
                         new_lane = self.target_lane + 1 
                         if new_lane < NUM_LANES and self.is_target_lane_safe(new_lane):      
-                            self.target_lane = new_lane     
+                            self.target_lane = new_lane 
+
+                            s = getattr(self.game, 'sfx_lane_switch', None)   #Sound Effekte für Lane Swap (Down)
+                            if s: s.play()
+
                 self.key_states['down'] = True
         else:
             self.key_states['down'] = False
