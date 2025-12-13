@@ -119,6 +119,10 @@ class Game:
             #Lane-Switch-Sound                                                          Sounds werden in die Variablen geladen
             self.sfx_lane_switch = self._try_load_sound('assets/lane_switch.wav')
 
+            #Projectile-Hit-Runner Sound
+            self.sfx_proj_hit_runner = self._try_load_sound('assets/hit.wav')
+
+
 
         except Exception as e: 
             print("Fehler beim Laden der Assets",e)
