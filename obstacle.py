@@ -1,4 +1,5 @@
 import pygame as pg
+import random
 from settings import *
 
 class Obstacle(pg.sprite.Sprite):
@@ -29,3 +30,8 @@ class Obstacle(pg.sprite.Sprite):
         if self.rect.right<0:           #Obstacle wird entfernt wenn es aus dem Bild ist (nicht weiter rendern)
             self.kill()
 
+class ObstacleFactory:                  #Erstellung eines Factory Patterns um die Entscheidung SHORT oder LONG aus der Gameworld Klasse auszulagern 
+    @staticmethod
+    def create(game, x, lane):
+        obstacle_type = random.choice([OBSTACLE_TYPE_SHORT, OBSTACLE_TYPE_LONG])
+        return Obstacle(game, x , lane, obstacle_type)

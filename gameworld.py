@@ -4,7 +4,7 @@ import random
 from runner import Runner
 from cannon import Cannon
 from checkpoint import Checkpoint
-from obstacle import Obstacle
+from obstacle import ObstacleFactory
 from projectile import Projectile
 from settings import * 
 
@@ -67,9 +67,8 @@ class GameWorld:
             random.shuffle(lanes)       #Funktion herausgefunden durch Google Anfrage "Liste neu mischen in pygame"
 
             for lane in lanes:  
-                if self.is_lane_free(lane, current_x):
-                    obstacle_type = random.choice([OBSTACLE_TYPE_SHORT,OBSTACLE_TYPE_LONG])       #Wähle zufällig zwischen TYPE_LONG und TYPE_SHORT
-                    Obstacle(self.game, current_x, lane, obstacle_type)
+                if self.is_lane_free(lane, current_x):                          #Es wird nicht mehr entschieden "WAS" gespawnt wird sonndern nur noch "WO und WANN" -> das "WAS" wurde an die ObstacleFactory ausgelagert
+                    ObstacleFactory.create(self.game, current_x, lane)          
                     break               #Nur ein Hindernis pro X-Position
 
             current_x += random.randint(300,500)
@@ -85,9 +84,8 @@ class GameWorld:
             for _ in range(9):  
                 lane = random.randint(0,NUM_LANES -1)
 
-                if self.is_lane_free(lane, spawn_x):    #Zufälliges Hindernis (SHORT oder LONG)
-                    obstacle_type = random.choice([OBSTACLE_TYPE_SHORT,OBSTACLE_TYPE_LONG])
-                    Obstacle(self.game,spawn_x,lane,obstacle_type)
+                if self.is_lane_free(lane, spawn_x):    #Es wird nicht mehr entschieden "WAS" gespawnt wird sonndern nur noch "WO und WANN" -> das "WAS" wurde an die ObstacleFactory ausgelagert
+                    ObstacleFactory.create(self.game,spawn_x,lane)
                     break 
                
 
