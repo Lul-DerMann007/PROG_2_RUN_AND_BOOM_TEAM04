@@ -57,9 +57,10 @@ class Game:
         #Spielwelt erstellen
         self.world = GameWorld(self)
 
-        #Initialisierung von zwei Schriftgrößen (Überschrift + normal)              #eingefügt Jonte 06.12 23:02
-        self.font = pg.font.Font(None, UI_FONT_SIZE)  #normale UI schriftgröße
-        self.font_large = pg.font.Font(None, UI_FONT_SIZE_LARGE)    #größere UI Schriftgröße/Überschriften
+        # Initialisierung von zwei Schriftgrößen (Überschrift + normal)
+        self.font = pg.font.Font('assets/pixelfont.ttf', UI_FONT_SIZE)              #normale UI schriftgröße im Pixel Font 
+        self.font_large = pg.font.Font('assets/pixelfont.ttf', UI_FONT_SIZE_LARGE)  #größere UI Schriftgröße/Überschriften
+
 
     def load_assets(self):              #Hier später die Bilder drin laden
         try:
@@ -351,8 +352,17 @@ class Game:
         p2_title = self.font.render(f"{self.player2.name.upper()} (ROT)", True, RED) # Anzeige Spieler 2 Name
         p2_score = self.font.render(f"Sätze: {self.player2.set_score} | Runden: {self.player2.round_score}", True, RED)
         
-        self.screen.blit(p2_title, (WIDTH - 250, UI_MARGIN)) 
-        self.screen.blit(p2_score, (WIDTH - 250, UI_MARGIN + 35))
+        # Durch folgenden Code werden die Namen und Scores von Spieler 2 rechtsbündig angezeigt
+        p2_title_x = WIDTH - p2_title.get_width() - UI_MARGIN
+        p2_score_x = WIDTH - p2_score.get_width() - UI_MARGIN
+        
+        
+        self.screen.blit(p2_title, (p2_title_x, UI_MARGIN))
+        self.screen.blit(p2_score, (p2_score_x, UI_MARGIN + 35))
+
+        # Durch folgenden Code werden die Namen und Scores von Spieler 2 etwas weiter links angezeigt
+        # self.screen.blit(p2_title, (WIDTH - 300, UI_MARGIN)) 
+        # self.screen.blit(p2_score, (WIDTH - 300, UI_MARGIN + 35))
         
         if self.game_state == "running":
             info_text = f"Satz-Ziel: {ROUNDS_TO_WIN_SET} Runden"
