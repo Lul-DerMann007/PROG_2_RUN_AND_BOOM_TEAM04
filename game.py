@@ -407,7 +407,7 @@ class Game:
         self.screen.blit(player2_label, player2_label_rect)
         
         # Spieler 2 Eingabefeld
-        color2 = RED if self.active_input_box == 2 else WHITE
+        color2 = RED #if self.active_input_box == 2 else WHITE
         pg.draw.rect(self.screen, color2, self.input_box2_rect, 3)
         
         # Spieler 2 Text
@@ -436,7 +436,7 @@ class Game:
 
 
         # Überschrift "RUN & BOOM" 
-        title_surface = self.font_large.render("RUN & BOOM", True, WHITE)
+        title_surface = self.font_large.render("RUN  & BOOM", True, WHITE)
         title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 4))
 
         # transparenter Block hinter dem Titel KI generiert prompt: Ich benötige um den Titel Run&Boom einen etwas dunkleren, schwarzen Block, 
