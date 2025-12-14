@@ -433,7 +433,22 @@ class Game:
         #title_surface = self.font_large.render("RUN & BOOM", True, WHITE)
         #title_rect = title_surface.getf_rect(center=(WIDTH // 2, HEIGHT // 3))
         #self.screen.blit(title_surface, title_rect)
-        
+
+
+        # Überschrift "RUN & BOOM" 
+        title_surface = self.font_large.render("RUN & BOOM", True, WHITE)
+        title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 4))
+
+        # transparenter Block hinter dem Titel KI generiert prompt: Ich benötige um den Titel Run&Boom einen etwas dunkleren, schwarzen Block, 
+        # der leicht durchsichtig ist, so dass man die Überschrift besser erkennen kann.
+        title_block = pg.Surface((title_rect.width + 2 * 16, title_rect.height + 2 * 16), pg.SRCALPHA)
+        title_block.fill((0, 0, 0, 160))
+        bg_rect = title_block.get_rect(center=title_rect.center)
+
+        # Erst Block dann Text
+        self.screen.blit(title_block, bg_rect)
+        self.screen.blit(title_surface, title_rect)
+       
         instructions = [
             "Spieler 1 (WASD): Runner in Runde 1",
             "Spieler 2 (Pfeiltasten): Kanone in Runde 1",
