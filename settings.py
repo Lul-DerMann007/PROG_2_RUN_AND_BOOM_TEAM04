@@ -48,8 +48,8 @@ CANNON_COLOR = RED
 LANE_SWITCH_SPEED_CANNON = 27
 
 # Projektil der Kanone 
-PROJECTILE_WIDTH = 32
-PROJECTILE_HEIGHT = 32
+PROJECTILE_WIDTH = 24
+PROJECTILE_HEIGHT = 24
 PROJECTILE_SPEED = 1150
 PROJECTILE_COLOR = ORANGE       # Pixel/Sekunde nach links
 
@@ -69,7 +69,7 @@ SCROLL_SPEED = 400       # Geschwindigkeit, mit der Hindernisse scrollen
 OBSTACLE_COLOR = GRAY
 
 # Einstellungen des Checkpoints
-CHECKPOINT_DISTANCE = 10000
+CHECKPOINT_DISTANCE = 6000
 CHECKPOINT_WIDTH = 60
 CHECKPOINT_HEIGHT = HEIGHT  #evtl. checkpoint größe noch anpassen später, stand jetzt ganzer bildschirm lang
 CHECKPOINT_COLOR = GREEN

@@ -13,7 +13,7 @@ class Game:
     
     def __init__(self):
         # Initialisierung und Fenster erstellen
-        pg.mixer.pre_init(44100, -16, 2, 512)
+        pg.mixer.pre_init(44100, -16, 2, 128)
         pg.init()
         try:
             pg.mixer.init()

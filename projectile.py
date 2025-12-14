@@ -50,7 +50,7 @@ class Projectile(pg.sprite.Sprite):
             s = getattr(self.game, 'sfx_proj_hit_runner',None)      #Soundeffekte bei Treffer
             if s: s.play()
 
-            pg.time.delay(600)                                      #Idee con Claude AI, damit Sound Timing optimiert ist           Tim- Nicht ganz zufrieden mit der Lösung Sound hört sich dennoch leicht versetzt an, ggf später ändern 
+            # pg.time.delay(600)                                      #Idee con Claude AI, damit Sound Timing optimiert ist           Tim- Nicht ganz zufrieden mit der Lösung Sound hört sich dennoch leicht versetzt an, ggf später ändern 
 
 
 
