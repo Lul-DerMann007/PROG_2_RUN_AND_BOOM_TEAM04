@@ -79,7 +79,7 @@ class GameWorld:
         if self.obstacle_spawn_timer >= self.obstacle_spawn_interval: 
             self.obstacle_spawn_timer = 0.0      #setzt den Timer zurück 
 
-            spawn_x = WIDTH + 100       # Spawn außerhalb vom Bildschirm 
+            spawn_x = WIDTH + 200       # Spawn außerhalb vom Bildschirm 
 
             for _ in range(9):  
                 lane = random.randint(0,NUM_LANES -1)

@@ -218,9 +218,9 @@ class Game:
         self.world.setup_round(runner_color, cannon_color)  #Übergabe der Farben              Tim-    Was ist mit Controls müssen die auch wieder übergeben werden?
 
         if os.path.exists(self.music_file):
-            pg.mixer_music.load(self.music_file)        #Lädt die Datei
+            pg.mixer.music.load(self.music_file)        #Lädt die Datei
             pg.mixer.music.set_volume(0.1)
-            pg.mixer_music.play(-1)     #-1 bedeutet Endlosschleife
+            pg.mixer.music.play(-1)     #-1 bedeutet Endlosschleife
         else:
             print(f"Musikdatei nicht gefunden: {self.music_file} ")
 

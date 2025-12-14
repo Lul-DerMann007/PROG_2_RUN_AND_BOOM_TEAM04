@@ -136,8 +136,6 @@ class Runner(pg.sprite.Sprite):
                 self.pos.x = target_x                              
                 if self.vel.x < 0:  
                     self.vel.x = 0
-                elif abs(self.vel.x) < 10:
-                    self.vel.x = 0
 
             self.rect.center = self.pos
 
