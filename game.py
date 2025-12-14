@@ -459,8 +459,32 @@ class Game:
             "",
             "LEERTASTE zum Starten"
         ]
-        y = HEIGHT // 2
+
+        # zeichnet einen transparenten Block hinter die Anweisungen auf der Startseite.
+        # KI generiert mit dem prompt: Ich benötige einen halbtransparenten schwarze Block hinter den Anweisungen (instructions) im auf der Startseite (menu).
+        # Der Block soll zentriert sein und genug Platz bieten damit alle Anweisungen gut lesbar sind. Der Block soll etwas Abstand zu den Rändern des Textes haben.
+        # Der Block soll in der Mite des Bildschirms positioniert sein etwas unterhalb der Überschrift.
+        # Berechne Blockgröße
+        text_start_y = HEIGHT // 2
+        line_height = UI_LINE_SPACING        
+        block_height = len(instructions) * line_height + (30 * 2)        
+        # Finde breiteste Textzeile
+        max_width = 0
+        for line in instructions:
+            text_surface = self.font.render(line, True, WHITE)
+            if text_surface.get_width() > max_width:
+                max_width = text_surface.get_width()        
+        block_width = max_width + (30 * 2)       
+        # Erstelle halbtransparenten schwarzen Block
+        block = pg.Surface((block_width, block_height))
+        block.set_alpha(200)
+        block.fill(BLACK)        
+        # Zeichne Block zentriert
+        block_x = (WIDTH - block_width) // 2
+        block_y = text_start_y - 45
+        self.screen.blit(block, (block_x, block_y))
         
+        y = HEIGHT // 2        
         for line in instructions:
             text_surface = self.font.render(line, True, WHITE)
             text_rect = text_surface.get_rect(center=(WIDTH // 2, y))
