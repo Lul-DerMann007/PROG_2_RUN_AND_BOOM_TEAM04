@@ -57,7 +57,7 @@ class Game:
         self.font_large = pg.font.Font('assets/pixelfont.ttf', UI_FONT_SIZE_LARGE)  #größere UI Schriftgröße/Überschriften
 
 
-    def load_assets(self):              #Hier später die Bilder drin laden
+    def load_assets(self):              
         try:
             #Sprite Runner Blue
             self.runner_blue_img = pg.image.load('assets/runner_blue.png').convert_alpha()           #Lädt Bilder aus dem Assets Ordner und wandelt Format um

@@ -18,7 +18,7 @@ class GameWorld:
         
         # Zustände der Welt
         self.scroll_speed: float = SCROLL_SPEED     #tempo der welt relativ zum runner
-        self.obstacle_spawn_interval: float = OBSTACLE_SPAWN_INTERVAL   #wichtiges Balancing Tool für spätere Tests
+        self.obstacle_spawn_interval: float = OBSTACLE_SPAWN_INTERVAL   #wichtiges Balancing Tool 
         self.obstacle_spawn_timer: float = 0.0 #Timer für kontinuierliches Spawning  
 
 
