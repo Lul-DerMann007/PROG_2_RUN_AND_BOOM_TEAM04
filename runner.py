@@ -55,7 +55,8 @@ class Runner(pg.sprite.Sprite):
             self.game.cannon_scores(reason = "pushed_off")
             return
         
-        #vertikale Bewegung + smoothing kanone und runner. Keine externe smooth_fuktion. KI-generiert mit Claude AI. Prompt: Analysiere nun auf Basis der anderen Module das Modul runner. Suche nach Funktionen und Aspekten, die unlogisch sind und liefer entsprechende Verbesserungen.
+        #vertikale Bewegung + smoothing kanone und runner. Keine externe smooth_fuktion. KI-generiert mit Claude AI. Prompt: Analysiere nun auf Basis der anderen Module das Modul runner.
+        #Suche nach Funktionen und Aspekten, die unlogisch sind und liefer entsprechende Verbesserungen.
         target_y= self.get_lane_y(self.target_lane)
         diff = target_y - self.pos.y
 

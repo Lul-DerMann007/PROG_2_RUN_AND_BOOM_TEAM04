@@ -5,7 +5,7 @@ import pygame as pg
 WIDTH = 1280         # Breite des Spielfensters in Pixeln
 HEIGHT = 720         # Höhe des Spielfensters in Pixeln
 FPS = 60             # Ziel-Bildwiederholrate
-TITLE = "Run & Boom" # Fenstertitel
+TITLE = "RUN & BOOM" # Fenstertitel
 
 #Score-Regeln / Satz System             # Hinzugefügt von Jonte 06.12 21:00
 ROUNDS_TO_WIN_SET = 3
