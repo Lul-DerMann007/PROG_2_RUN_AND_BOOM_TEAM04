@@ -69,7 +69,7 @@ SCROLL_SPEED = 400       # Geschwindigkeit, mit der Hindernisse scrollen
 OBSTACLE_COLOR = GRAY
 
 # Einstellungen des Checkpoints
-CHECKPOINT_DISTANCE = 8000
+CHECKPOINT_DISTANCE = 6000
 CHECKPOINT_WIDTH = 60
 CHECKPOINT_HEIGHT = HEIGHT  #evtl. checkpoint größe noch anpassen später, stand jetzt ganzer bildschirm lang
 CHECKPOINT_COLOR = GREEN

@@ -538,20 +538,7 @@ class Game:
         else:
             winner = self.player2
             self.screen.blit(self.victory_red_img, (0, 0))
-            
-        text = f"{winner.name} GEWINNT DAS MATCH!"
-        text_surface = self.font_large.render(text, True, GREEN)
-        text_rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
-        self.screen.blit(text_surface, text_rect)
-        
-        score_text = f"Satz-Endstand: {self.player1.set_score} : {self.player2.set_score}"
-        score_surface = self.font.render(score_text, True, WHITE)
-        score_rect = score_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-        self.screen.blit(score_surface, score_rect)
-        
-        restart_surface = self.font.render("LEERTASTE für neues Spiel", True, WHITE)
-        restart_rect = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
-        self.screen.blit(restart_surface, restart_rect)
+
 
     def run(self):      #Gameloop (läuft so lange self.running True ist)
         while self.running:                     
