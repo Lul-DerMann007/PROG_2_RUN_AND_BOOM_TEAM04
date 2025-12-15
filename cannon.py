@@ -50,7 +50,7 @@ class Cannon(pg.sprite.Sprite):
         x = self.pos.x - CANNON_WIDTH // 2
         y = self.pos.y
 
-        projectile = Projectile(self.game, x, y, self.color)        #Farbe wird an Projectile übergeben
+        Projectile(self.game, x, y, self.color)        #Farbe wird an Projectile übergeben
         
         self.shoot_cooldown = CANNON_COOLDOWN       #cooldown setzen
 
@@ -83,20 +83,7 @@ class Cannon(pg.sprite.Sprite):
 
         # x bleibt fix, nur y ändert sich
         self.rect.center= (int(self.pos.x), int(self.pos.y))
-
-        
-    def reset_position(self, start_lane):
-        #Kanone zurücksetzen
-        self.current_lane = start_lane
-        self.target_lane = start_lane
-        self.pos.y = self.get_lane_y(start_lane)
-        self.can_shoot = True
-        self.shoot_cooldown = 0.0
-        
-        for p in self.projectiles:
-            p.kill()
-        self.projectiles = []
-
+       
     def get_keys(self):                   #Anregung von ChatGPT. Prompt: mit welcher pygame funktion kann man abfragen, ob eine taste im Zustand gedrückt ist?
                                                       #Antwort von ChatGPT: "Funktion: pygame.key.get_pressed()--> gibt eine Liste zurück, die den Zustand der Taste enthält"
         keys = pg.key.get_pressed()

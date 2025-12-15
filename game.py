@@ -46,8 +46,6 @@ class Game:
         self.set_won_message = None
 
         # Namenseingabe-Variablen
-        self.input_boxes = []
-        self.active_input_box = None
         self.player1_name_input = ""
         self.player2_name_input = ""               
 
@@ -229,7 +227,7 @@ class Game:
         self.current_runner.win_round()
         self.process_round_result(winner=self.current_runner)   
 
-    def cannon_scores(self, reason="hit"):
+    def cannon_scores(self, reason = "hit"):
         self.last_point_reason = reason
         self.current_cannon.win_round()
         self.process_round_result(winner=self.current_cannon)
@@ -356,10 +354,6 @@ class Game:
         
         self.screen.blit(p2_title, (p2_title_x, UI_MARGIN))
         self.screen.blit(p2_score, (p2_score_x, UI_MARGIN + 35))
-
-        # Durch folgenden Code werden die Namen und Scores von Spieler 2 etwas weiter links angezeigt
-        # self.screen.blit(p2_title, (WIDTH - 300, UI_MARGIN)) 
-        # self.screen.blit(p2_score, (WIDTH - 300, UI_MARGIN + 35))
         
         if self.game_state == "running":
             info_text = f"Satz-Ziel: {ROUNDS_TO_WIN_SET} Runden"
@@ -427,11 +421,7 @@ class Game:
     def draw_menu(self):
         # Zeichnet das Hauptmenü
         self.screen.blit(self.menu_img, (0, 0))
-        #title_surface = self.font_large.render("RUN & BOOM", True, WHITE)
-        #title_rect = title_surface.getf_rect(center=(WIDTH // 2, HEIGHT // 3))
-        #self.screen.blit(title_surface, title_rect)
-
-
+       
         # Überschrift "RUN & BOOM" 
         title_surface = self.font_large.render(TITLE, True, WHITE)
         title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 4))

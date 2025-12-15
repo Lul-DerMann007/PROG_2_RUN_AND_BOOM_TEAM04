@@ -11,7 +11,6 @@ class Checkpoint(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.center = (x,HEIGHT // 2)
-        # Attribute passend zu, UML-Design
         self.is_reached: bool = False
         
         

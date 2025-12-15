@@ -6,7 +6,7 @@ from settings import *
 class Runner(pg.sprite.Sprite):
    
     def __init__(self, game, x: float, start_lane: int, controls: dict,color):
-        self.groups = game.all_sprites  
+        self.groups = game.all_sprites                  
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game                # Referenz auf die Game-Klasse für Scoring
         self.controls = controls
@@ -51,9 +51,6 @@ class Runner(pg.sprite.Sprite):
         self.vel.x += self.acc.x * dt                   #geschwindigkeit aktualisieren
         self.pos.x += self.vel.x * dt + 0.5 * self.acc.x * dt ** 2      #position aktualisieren
 
-        if self.pos.x < -RUNNER_SIZE:                               #links raus wenn runner mehr als seine eigene größe links raus ist
-            self.game.cannon_scores(reason = "pushed_off")
-            return
         
         #vertikale Bewegung + smoothing kanone und runner. Keine externe smooth_fuktion. KI-generiert mit Claude AI. Prompt: Analysiere nun auf Basis der anderen Module das Modul runner.
         #Suche nach Funktionen und Aspekten, die unlogisch sind und liefer entsprechende Verbesserungen.
@@ -62,11 +59,11 @@ class Runner(pg.sprite.Sprite):
 
         self.pos.y += diff * LANE_SWITCH_SPEED_RUNNER * dt
 
-        if abs(self.pos.y - target_y) < 1:          #genauers einrasten, wenn nah genug dran
+        if abs(self.pos.y - target_y) < 1:          #Genaueres Einrasten, wenn nah genug dran
             self.pos.y = target_y
             self.current_lane = self.target_lane
 
-        max_x = WIDTH * RUNNER_MAX_SCREEN       #begrenzung auf 4/5 Maximalposition nach rechts: einstellbar über RUNNER_MAX_SCREEN in settings.py
+        max_x = WIDTH * RUNNER_MAX_SCREEN       #Begrenzung auf 4/5 Maximalposition nach rechts: einstellbar über RUNNER_MAX_SCREEN in settings.py
         
 
         # Game Over wenn der Runner zu weit nach links läuft
@@ -123,7 +120,7 @@ class Runner(pg.sprite.Sprite):
             self.key_states['down'] = False
     
     def collide_with_obstacle(self, obstacle):  #Kollision mit Hinderniss
-      if self.rect.colliderect(obstacle.rect):
+      if self.rect.colliderect(obstacle.rect):          #Die Prüfung wird schon von Gameworld übenrommen, aus sicherheit drin lassen
             left_overlap = self.rect.right - obstacle.rect.left
             right_overlap = obstacle.rect.right - self.rect.left
             

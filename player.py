@@ -18,7 +18,7 @@ class Player:
     
     def win_round(self):                                    #increase_score ersetzt durch win_round, sinnvoller bei neuem score-system
         self.round_score += 1   #runde im satz
-        self.score +=1          #runden overall
+
 
     def win_set(self):          
         self.set_score += 1
@@ -33,7 +33,6 @@ class Player:
             
     def reset(self):
         # Setzt den Spieler für ein neues Spiel zurück.
-        self.score = 0
         self.round_score = 0
         self.set_score = 0
         self.role = None
