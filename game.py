@@ -1,5 +1,4 @@
 # game.py
-
 import pygame as pg
 import os
 from settings import *
@@ -8,9 +7,7 @@ from player import Player
 
 class Game:
     
-    #Das ist die entscheidende Hauptklasse des Spiels (Context). Verwaltet Initialisierung, den Game Loop und den Spielzustand.
-    
-    
+    #Das ist die entscheidende Hauptklasse des Spiels (Context). Verwaltet Initialisierung, den Game Loop und den Spielzustand.      
     def __init__(self):
         # Initialisierung und Fenster erstellen
         pg.mixer.pre_init(44100, -16, 2, 128)
@@ -145,7 +142,7 @@ class Game:
             print("Fehler beim Laden der Assets",e)
             self.load_fallback_images()
 
-    #Sound Lade Funktion teilweise Hilfe durch KI
+    #Sound Lade Funktion teilweise Hilfe durch KI 
     def _try_load_sound(self, path):
         if not os.path.exists(path):
             print(f"Sound nicht gefunden (ignoriert): {path}")           
@@ -375,7 +372,7 @@ class Game:
             role_r = role_surf.get_rect(center=(WIDTH//2, 70))
             self.screen.blit(role_surf, role_r)
 
-    # Der Folgende Abschnitt zeichnet die Namenseingabe-Maske. Dieser wurde mit KI generiert mit dem folgenden Prompt:
+    # Der Folgende Abschnitt zeichnet die Namenseingabe-Maske. Dieser wurde mit KI (Claude Sonnet 4.5) generiert mit dem folgenden Prompt:
     # "Schreibe pygame Methode draw_name_input(): Schwarzer Screen, zentrierter Titel "SPIELERNAMEN EINGEBEN", zwei Eingabefelder
     # mit Labels "Spieler 1 (BLAU)" und "Spieler 2 (ROT)", aktives Feld in Spielerfarbe umrandet, inaktives weiß, eingegebener Text zentriert anzeigen, unten gelbe Anweisungen."
     def draw_name_input(self):
@@ -407,7 +404,7 @@ class Game:
         self.screen.blit(player2_label, player2_label_rect)
         
         # Spieler 2 Eingabefeld
-        color2 = RED #if self.active_input_box == 2 else WHITE
+        color2 = RED if self.active_input_box == 2 else WHITE
         pg.draw.rect(self.screen, color2, self.input_box2_rect, 3)
         
         # Spieler 2 Text
@@ -436,10 +433,10 @@ class Game:
 
 
         # Überschrift "RUN & BOOM" 
-        title_surface = self.font_large.render("RUN  & BOOM", True, WHITE)
+        title_surface = self.font_large.render(TITLE, True, WHITE)
         title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 4))
 
-        # transparenter Block hinter dem Titel KI generiert prompt: Ich benötige um den Titel Run&Boom einen etwas dunkleren, schwarzen Block, 
+        # transparenter Block hinter dem Titel KI (Claude Sonnet 4.5) generiert prompt: Ich benötige um den Titel Run&Boom einen etwas dunkleren, schwarzen Block, 
         # der leicht durchsichtig ist, so dass man die Überschrift besser erkennen kann.
         title_block = pg.Surface((title_rect.width + 2 * 16, title_rect.height + 2 * 16), pg.SRCALPHA)
         title_block.fill((0, 0, 0, 160))
@@ -461,7 +458,7 @@ class Game:
         ]
 
         # zeichnet einen transparenten Block hinter die Anweisungen auf der Startseite.
-        # KI generiert mit dem prompt: Ich benötige einen halbtransparenten schwarze Block hinter den Anweisungen (instructions) im auf der Startseite (menu).
+        # KI (Claude Sonnet 4.5) generiert mit dem prompt: Ich benötige einen halbtransparenten schwarze Block hinter den Anweisungen (instructions) im auf der Startseite (menu).
         # Der Block soll zentriert sein und genug Platz bieten damit alle Anweisungen gut lesbar sind. Der Block soll etwas Abstand zu den Rändern des Textes haben.
         # Der Block soll in der Mite des Bildschirms positioniert sein etwas unterhalb der Überschrift.
         # Berechne Blockgröße
@@ -538,7 +535,20 @@ class Game:
         else:
             winner = self.player2
             self.screen.blit(self.victory_red_img, (0, 0))
-
+            
+        text = f"{winner.name} GEWINNT DAS MATCH!"
+        text_surface = self.font_large.render(text, True, GREEN)
+        text_rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
+        self.screen.blit(text_surface, text_rect)
+        
+        score_text = f"Satz-Endstand: {self.player1.set_score} : {self.player2.set_score}"
+        score_surface = self.font.render(score_text, True, WHITE)
+        score_rect = score_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+        self.screen.blit(score_surface, score_rect)
+        
+        restart_surface = self.font.render("LEERTASTE für neues Spiel", True, WHITE)
+        restart_rect = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 100))
+        self.screen.blit(restart_surface, restart_rect)
 
     def run(self):      #Gameloop (läuft so lange self.running True ist)
         while self.running:                     
