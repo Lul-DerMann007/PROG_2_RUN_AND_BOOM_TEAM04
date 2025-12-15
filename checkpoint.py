@@ -25,7 +25,7 @@ class Checkpoint(pg.sprite.Sprite):
     def check_reached(self,runner):
         if self.is_reached:
             return  #prüft, ob checkpoint noch nicht erreicht ist und runner und checkpoint überlappen
-        if runner.pos.x >= self.rect.centerx:   #Bugfix mi Gemini. Prompt: Ich habe diese Funktion zur Checkpoint Erreichung erstellt. Ich bekomme eine Fehlermeldung, das ich string nicht mit tupel vergleichen kann. Wie kann ich die Mitte des Checkpoints vergleichen?
+        if runner.pos.x >= self.rect.left:   #Bugfix mi Gemini. Prompt: Ich habe diese Funktion zur Checkpoint Erreichung erstellt. Ich bekomme eine Fehlermeldung, das ich string nicht mit tupel vergleichen kann. Wie kann ich die Mitte des Checkpoints vergleichen?
             self.is_reached = True              #wenn die überlappen, wird self.is_reached auf True gestellt
             self.game.checkpoint_reached()      #game.py wird benachrichtigt
 
