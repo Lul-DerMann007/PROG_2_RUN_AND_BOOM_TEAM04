@@ -35,7 +35,7 @@ class Game:
         self.player1 = Player("Spieler 1", PLAYER1_CONTROLS, "blue")
         self.player2 = Player("Spieler 2", PLAYER2_CONTROLS, "red")
 
-        #referenz auf aktuelle rollen (!Später!)
+        #referenz auf aktuelle rollen
         self.current_runner = None
         self.current_cannon = None
 
@@ -140,7 +140,7 @@ class Game:
             print("Fehler beim Laden der Assets",e)
             self.load_fallback_images()
 
-    #Sound Lade Funktion teilweise Hilfe durch KI 
+    #Sound Lade Funktion mit fallback-Funktion Mit Hilfe von claude ai sonet 4.5 erstellt Prompt:"Wie können die bereits geladenen Sounds abgespielt werden? bitte inkl. fallback logik"
     def _try_load_sound(self, path):
         if not os.path.exists(path):
             print(f"Sound nicht gefunden (ignoriert): {path}")           
@@ -159,6 +159,19 @@ class Game:
         
         self.runner_red_img = pg.Surface((RUNNER_SIZE, RUNNER_SIZE))
         self.runner_red_img.fill(RED)
+
+        self.cannon_blue_img = pg.Surface((CANNON_WIDTH, CANNON_HEIGHT))
+        self.cannon_blue_img.fill(BLUE)
+
+        self.cannon_red_img = pg.Surface((CANNON_WIDTH, CANNON_HEIGHT))
+        self.cannon_red_img.fill(RED)
+
+        self.projectile_blue_img = pg.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
+        self.projectile_blue_img.fill(BLUE)
+
+        self.projectile_red_img = pg.Surface((PROJECTILE_WIDTH, PROJECTILE_HEIGHT))
+        self.projectile_red_img.fill(RED)
+
 
     def init_name_input(self):  # Eingabefelder für Spielernamen initialisieren
         self.game_state = "name_input"
