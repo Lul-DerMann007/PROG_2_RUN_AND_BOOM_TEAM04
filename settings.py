@@ -7,7 +7,7 @@ HEIGHT = 720         # Höhe des Spielfensters in Pixeln
 FPS = 60             # Ziel-Bildwiederholrate
 TITLE = "RUN & BOOM" # Fenstertitel
 
-#Score-Regeln / Satz System             # Hinzugefügt von Jonte 06.12 21:00
+#Score-Regeln / Satz System             
 ROUNDS_TO_WIN_SET = 3
 SETS_TO_WIN_MATCH = 3
 
@@ -53,7 +53,7 @@ PROJECTILE_HEIGHT = 24
 PROJECTILE_SPEED = 1150
 PROJECTILE_COLOR = ORANGE       # Pixel/Sekunde nach links
 
-#Ebenen/Lanes System, finale Logik Stand: 16.11 Jonte und Mares
+#Ebenen/Lanes System, finale Logik 
 NUM_LANES = 8
 LANE_HEIGHT = HEIGHT // NUM_LANES 
 
@@ -74,7 +74,7 @@ CHECKPOINT_WIDTH = 60
 CHECKPOINT_HEIGHT = HEIGHT  #evtl. checkpoint größe noch anpassen später, stand jetzt ganzer bildschirm lang
 CHECKPOINT_COLOR = GREEN
 
-# Steuerung (Wird in player.py genutzt)   Änderung Jonte 06.12 20:50 Strings als Pygame Konstanten abgespeichert (ermöglicht den Rollenwechsel)
+# Steuerung (Wird in player.py genutzt)   
 PLAYER1_CONTROLS = {
     'up': pg.K_w, 
     'down': pg.K_s,

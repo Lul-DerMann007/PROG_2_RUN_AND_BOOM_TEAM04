@@ -26,8 +26,8 @@ class Game:
         self.running = True
         
         self.all_sprites = pg.sprite.Group()    #alle sprites werden in einer gruppe gespeichert (sehr leicht so aufzurufen)
-        self.obstacles = pg.sprite.Group()      #nur für hindernisse (kollisionen)  !Spätere Implementierung!
-        self.projectiles = pg.sprite.Group()    #nur für projektile (kollisionen) !Spätere Implementierung!
+        self.obstacles = pg.sprite.Group()      #nur für hindernisse (kollisionen)  
+        self.projectiles = pg.sprite.Group()    #nur für projektile (kollisionen) 
 
         self.load_assets()
         
@@ -39,7 +39,7 @@ class Game:
         self.current_runner = None
         self.current_cannon = None
 
-        #Zustände für Score-System              #Anpassungen Jonte 06.12 22:51
+        #Zustände für Score-System              
         self.current_round_num = 0 
         self.game_state = "menu"
         self.last_point_reason = None
@@ -112,7 +112,7 @@ class Game:
             self.victory_red_img = pg.image.load('assets/victory_red.png').convert()
             self.victory_red_img = pg.transform.scale(self.victory_red_img, (WIDTH, HEIGHT))
 
-            #Lane-Switch-Sound                                                          Sounds werden in die Variablen geladen
+            #Lane-Switch-Sound                                                          
             self.sfx_lane_switch = self._try_load_sound('assets/lane_switch.wav')
             
             #Projectile-Hit-Runner Sound
@@ -210,7 +210,7 @@ class Game:
         runner_color = self.current_runner.color
         cannon_color = self.current_cannon.color
 
-        self.world.setup_round(runner_color, cannon_color)  #Übergabe der Farben              Tim-    Was ist mit Controls müssen die auch wieder übergeben werden?
+        self.world.setup_round(runner_color, cannon_color)  #Übergabe der Farben              
 
         if os.path.exists(self.music_file):
             pg.mixer.music.load(self.music_file)        #Lädt die Datei

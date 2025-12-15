@@ -44,7 +44,7 @@ class Projectile(pg.sprite.Sprite):
         self.kill()
 
 
-    def check_collision_with_runner(self,runner):              #Jonte Anpassungen 16:34 !Später! darunter check_collisions_with_obstacle
+    def check_collision_with_runner(self,runner):              
         if self.active and self.rect.colliderect(runner.rect):
 
             s = getattr(self.game, 'sfx_proj_hit_runner',None)      #Soundeffekte bei Treffer
